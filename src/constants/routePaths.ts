@@ -3,6 +3,7 @@ const paths = {
   //  ROUTES
   MAIN: '/',
   USERS: '/users',
+  TABLE: '/table',
 };
 
 export default paths;
