@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {},
       fontFamily: {
-        sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+        sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
     },
     screens: {},
