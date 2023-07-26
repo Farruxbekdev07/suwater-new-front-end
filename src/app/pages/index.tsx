@@ -1,5 +1,5 @@
+import Table from 'app/components/Table';
 import React from 'react';
-import Table from '.';
 
 interface DataType {
   key: number;
@@ -84,6 +84,6 @@ const columns = [
   },
 ];
 
-export default function Tables() {
+export default function Users() {
   return <Table dataSource={dataSource} columns={columns} />;
 }

@@ -3,6 +3,7 @@ const paths = {
   //  ROUTES
   MAIN: '/',
   USERS: '/users',
+  MODAL: '/modal',
   TABLE: '/table',
 };
 

@@ -1,8 +1,7 @@
-import { HomePage } from 'app/pages/HomePage';
 import paths from 'constants/routePaths';
 import { FC } from 'react';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
-import Tables from 'app/components/Table/TableItem';
+import { UserCircleIcon, UserPlusIcon } from '@heroicons/react/24/outline';
+import Users from 'app/pages';
 
 interface IRoute {
   path: string;
@@ -19,15 +18,9 @@ export const AUTH_ROUTES: IRoute[] = [];
 export const SIDEBAR_ROUTES: ISidebarRoutes[] = [
   {
     path: paths.USERS,
-    element: HomePage,
+    element: Users,
     icon: UserCircleIcon,
     label: 'Users',
-  },
-  {
-    path: paths.TABLE,
-    element: Tables,
-    icon: UserCircleIcon,
-    label: 'Table',
   },
 ];
 
