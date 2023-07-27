@@ -1,10 +1,9 @@
 import Button from 'UI/Button';
 import Input from 'UI/Input';
 import React from 'react';
-import { Formik, Form } from 'formik';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-function Modal({ isVisible, onClose }) {
+function CreateModal({ isVisible, onClose }) {
   if (!isVisible) return null;
 
   const handleClose = e => {
@@ -48,4 +47,4 @@ function Modal({ isVisible, onClose }) {
   );
 }
 
-export default Modal;
+export default CreateModal;

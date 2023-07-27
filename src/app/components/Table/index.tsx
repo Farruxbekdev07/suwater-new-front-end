@@ -1,217 +1,79 @@
-import Button from 'UI/Button';
-import React, { useState } from 'react';
-import { UserPlusIcon } from '@heroicons/react/24/outline';
-import Modal from 'app/pages/User/components/Modal';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactPaginate from 'react-paginate';
 
-export default function Table({ dataSource, columns }) {
-  const [showModal, setShowModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
-  const [search, setSearch] = useState('');
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const [currentPosts, setCurrentPosts] = useState(
-    dataSource?.slice(indexOfFirstPost, indexOfLastPost),
-  );
-  const paginate = ({ selected }) => {
-    setCurrentPage(selected + 1);
-  };
+interface ColumnsType {
+  title: string;
+  dataIndex: string;
+  key?: string;
+  render?: (text, data) => void;
+}
+interface ITableProps {
+  dataSource: any[];
+  columns: ColumnsType[];
+  pagination?: boolean | object;
+  pageSize?: number;
+  totalDocs?: number;
+  onPageChange?: (page) => void;
+}
 
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      const res = dataSource.filter(item => {
-        return item.name.toLowerCase().includes(search.toLowerCase());
-      });
-      setCurrentPosts(res);
+export default function Table({
+  dataSource,
+  columns,
+  pagination = false,
+  pageSize = 10,
+  onPageChange,
+  totalDocs = 0,
+}: ITableProps) {
+  const { t } = useTranslation();
+  const handlePageChange = ({ selected }) => {
+    if (onPageChange) {
+      onPageChange(selected + 1);
     }
   };
 
   return (
-    <div className="user">
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div className="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
-          <div className="px-4 py-2">
-            <button
-              id="dropdownActionButton"
-              data-dropdown-toggle="dropdownAction"
-              className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-              type="button"
-            >
-              <span className="sr-only">Action button</span>
-              Type of disease
-              <svg
-                className="w-2.5 h-2.5 ml-2.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-            <div
-              id="dropdownAction"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-            >
-              <ul
-                className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownActionButton"
-              >
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Reward
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Promote
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Activate account
-                  </a>
-                </li>
-              </ul>
-              <div className="py-1">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Delete User
-                </a>
-              </div>
-            </div>
-          </div>
-          <label className="sr-only">Search</label>
-          <div className="px-4 py-2 flex items-center justify-between gap-4">
-            <div className="relative">
-              <div className="absolute flex justify-center inset-y-0 left-0 items-center w-[40px] pointer-events-none cursor-pointer">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="table-search-users"
-                className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for users"
-                onKeyDown={handleKeyDown}
-                onChange={e => setSearch(e.target.value)}
-              />
-            </div>
-            <Button leftIcon={UserPlusIcon} onClick={() => setShowModal(true)}>
-              Add User
-            </Button>
-          </div>
-        </div>
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <>
+      <div className="relative overflow-x-auto shadow-md rounded-lg">
+        <table className="w-full text-sm text-left bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-400">
+          <thead className="w-full text-sm text-gray-900 capitalize bg-gray-100 dark:bg-gray-900 dark:text-gray-200">
             <tr>
-              <th scope="col" className="p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-all-search"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label className="sr-only">checkbox</label>
-                </div>
-              </th>
-              {columns?.map(item => (
-                <th scope="col" className="px-6 py-3">
-                  {item?.title}
+              {columns?.map(column => (
+                <th
+                  scope="col"
+                  className="px-6 py-3 font-semibold"
+                  key={column?.key ?? column?.dataIndex}
+                >
+                  {t(column?.title)}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {currentPosts?.map(item => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label className="sr-only">checkbox</label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <img
-                    className="w-15 h-12 rounded-full"
-                    src={item?.img}
-                    alt="Jese image"
-                  />
-                  <div className="pl-3">
-                    <div className="text-base font-semibold">{item?.name}</div>
-                    <div className="font-normal text-gray-500">
-                      {item.email}
-                    </div>
-                  </div>
-                </th>
-                <td className="px-6 py-4">{item?.date}</td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center">
-                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{' '}
-                    {item?.status}
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    type="button"
-                    data-modal-target="editUserModal"
-                    data-modal-show="editUserModal"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit user
-                  </a>
-                </td>
+            {dataSource?.map((data, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                {columns.map((column, index) => (
+                  <td key={index} className="px-6 py-4">
+                    {column?.render
+                      ? column?.render(data[column?.dataIndex], data)
+                      : data[column?.dataIndex]}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="flex justify-end w-100 mt-5">
-        {dataSource.length > 6 ? (
+        {totalDocs > pageSize && pagination ? (
           <ReactPaginate
-            onPageChange={paginate}
-            pageCount={Math.ceil(dataSource.length / postsPerPage)}
-            previousLabel={'Previous'}
-            nextLabel={'Next'}
+            onPageChange={handlePageChange}
+            pageCount={Math.ceil(totalDocs / pageSize)}
+            previousLabel={t('Previous')}
+            nextLabel={t('Next')}
             containerClassName={
               'flex w-[fit-content] bg-gray-800 text-[16px] rounded-[10px]'
             }
@@ -225,14 +87,13 @@ export default function Table({ dataSource, columns }) {
               'flex justify-center items-center w-[fit-content] px-3 h-[40px] border border-gray-300 leading-tight rounded-r-[10px] hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
             }
             activeLinkClassName={
-              'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-500 dark:bg-gray-700 dark:text-white dark:bg-gray-500'
+              'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-500 dark:bg-gray-700 dark:text-white dark:bg-gray-1000'
             }
           />
         ) : (
           <div></div>
         )}
       </div>
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
-    </div>
+    </>
   );
 }

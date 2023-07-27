@@ -1,7 +1,7 @@
 import paths from 'constants/routePaths';
 import { FC } from 'react';
-import { UserCircleIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import Users from 'app/pages';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
+import Users from 'app/pages/Users';
 
 interface IRoute {
   path: string;
