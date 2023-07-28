@@ -162,7 +162,7 @@ const columns = [
     key: 'address',
   },
   {
-    title: '',
+    title: 'Action',
     dataIndex: 'address',
     key: 'action',
     render: (text, data) => <Button label={`${data?.name}, ${text}`} />,

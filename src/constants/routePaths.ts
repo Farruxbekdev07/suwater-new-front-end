@@ -5,6 +5,7 @@ const paths = {
   USERS: '/users',
   MODAL: '/modal',
   TABLE: '/table',
+  PAYMENTS: '/payments',
 };
 
 export default paths;

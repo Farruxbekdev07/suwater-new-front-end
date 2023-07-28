@@ -2,6 +2,7 @@ import paths from 'constants/routePaths';
 import { FC } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import Users from 'app/pages/Users';
+import Payments from 'app/pages/Payments';
 
 interface IRoute {
   path: string;
@@ -21,6 +22,12 @@ export const SIDEBAR_ROUTES: ISidebarRoutes[] = [
     element: Users,
     icon: UserCircleIcon,
     label: 'Users',
+  },
+  {
+    path: paths.PAYMENTS,
+    element: Payments,
+    icon: UserCircleIcon,
+    label: 'Payments',
   },
 ];
 
