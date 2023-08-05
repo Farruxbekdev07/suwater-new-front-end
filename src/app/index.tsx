@@ -14,12 +14,27 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
-import { MAIN_ROUTES, SIDEBAR_ROUTES } from 'routes';
+import { AUTH_ROUTES, MAIN_ROUTES, SIDEBAR_ROUTES } from 'routes';
 import Sidebar from './components/Sidebar';
 import Container from 'UI/Container';
+import Header from './components/Header';
+import paths from 'constants/routePaths';
 
 export function App() {
   const { i18n } = useTranslation();
+  const [mode, setMode] = React.useState(false);
+  const [newMode, setNewMode] = React.useState('');
+  const [openSidebar, setOpenSidebar] = React.useState(true);
+  const [componentType, setComponentType] = React.useState(false);
+
+  React.useEffect(() => {
+    if (mode === true) {
+      setNewMode('bg-white text-gray-900');
+    } else {
+      setNewMode('bg-gray-900');
+    }
+  }, [mode]);
+
   return (
     <BrowserRouter>
       <Helmet
@@ -29,26 +44,104 @@ export function App() {
       >
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
-      <div className="flex">
-        <div className="w-64 max-[640px]:w-20">
-          <Sidebar />
+      {/* {window.location.pathname === paths.SIGNUP ||
+      window.location.pathname === paths.SIGNIN ? (
+        <Container>
+          <React.Suspense fallback="Loading...">
+            <Routes>
+              {[...AUTH_ROUTES].map(item => {
+                const { path, element: Component } = item;
+                return (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={<Component mode={mode} changeMode={setMode} />}
+                  />
+                );
+              })}
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </React.Suspense>
+        </Container>
+      ) : (
+        <div className="flex">
+          <div
+            className={
+              openSidebar
+                ? 'w-64 max-[640px]:w-20 relative transition-all'
+                : 'hidden transition-all'
+            }
+          >
+            <Sidebar
+              open={openSidebar}
+              mode={mode}
+              changeMode={setMode}
+              componentType={setComponentType}
+            />
+          </div>
+          <div className={`flex-1 ${newMode}`}>
+            <Header
+              mode={mode}
+              changeMode={setMode}
+              open={openSidebar}
+              setOpenSidebar={setOpenSidebar}
+            />
+
+            <Container>
+              <React.Suspense fallback="Loading...">
+                <Routes>
+                  {[...SIDEBAR_ROUTES, ...MAIN_ROUTES].map(item => {
+                    const { path, element: Component } = item;
+                    return (
+                      <Route
+                        key={path}
+                        path={path}
+                        element={
+                          <Component
+                            mode={mode}
+                            changeMode={setMode}
+                            open={openSidebar}
+                            setOpenSidebar={setOpenSidebar}
+                          />
+                        }
+                      />
+                    );
+                  })}
+
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </React.Suspense>
+            </Container>
+          </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-900 flex-1">
-          <Container>
-            <React.Suspense fallback="Loading...">
-              <Routes>
-                {[...SIDEBAR_ROUTES, ...MAIN_ROUTES].map(item => {
-                  const { path, element: Component } = item;
-                  return (
-                    <Route key={path} path={path} element={<Component />} />
-                  );
-                })}
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </React.Suspense>
-          </Container>
-        </div>
-      </div>
+      )} */}
+
+      {/* <Container> */}
+      <React.Suspense fallback="Loading...">
+        <Routes>
+          {[...AUTH_ROUTES, ...MAIN_ROUTES, ...SIDEBAR_ROUTES].map(item => {
+            const { path, element: Component } = item;
+            return (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <Component
+                    mode={mode}
+                    changeMode={setMode}
+                    openSidebar={openSidebar}
+                    setOpenSidebar={setOpenSidebar}
+                  />
+                }
+              />
+            );
+          })}
+
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </React.Suspense>
+      {/* </Container> */}
       <GlobalStyle />
     </BrowserRouter>
   );

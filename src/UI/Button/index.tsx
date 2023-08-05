@@ -12,13 +12,8 @@ interface IButtonProps {
   leftIcon?: any;
   rightIcon?: any;
   type?: Types;
+  mode?: any;
 }
-
-const buttonTypes = {
-  primary: 'bg-blue-700 text-white border-blue-700',
-  outline:
-    'bg-transparent text-gray-950 border-gray-600 hover:text-blue-700 hover:border-blue-700 hover:opacity-100 dark:text-gray-50 dark:border-gray-100',
-};
 
 const Button = ({
   label,
@@ -29,8 +24,18 @@ const Button = ({
   leftIcon: LeftIcon,
   rightIcon: RightIcon,
   type,
+  mode,
 }: IButtonProps) => {
   const { t } = useTranslation();
+
+  const buttonTypes = {
+    primary: 'bg-blue-700 text-white border-blue-700',
+    outline: `bg-transparent border-gray-600 hover:text-blue-700 hover:border-blue-700 hover:opacity-100 dark:border-gray-100 ${
+      mode === true
+        ? 'text-gray-950 dark:text-blue-600 border dark:border-blue-800'
+        : 'text-red-950 dark:text-gray-50'
+    }`,
+  };
 
   return (
     <button
