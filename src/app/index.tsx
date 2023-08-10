@@ -44,80 +44,6 @@ export function App() {
       >
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
-      {/* {window.location.pathname === paths.SIGNUP ||
-      window.location.pathname === paths.SIGNIN ? (
-        <Container>
-          <React.Suspense fallback="Loading...">
-            <Routes>
-              {[...AUTH_ROUTES].map(item => {
-                const { path, element: Component } = item;
-                return (
-                  <Route
-                    key={path}
-                    path={path}
-                    element={<Component mode={mode} changeMode={setMode} />}
-                  />
-                );
-              })}
-
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </React.Suspense>
-        </Container>
-      ) : (
-        <div className="flex">
-          <div
-            className={
-              openSidebar
-                ? 'w-64 max-[640px]:w-20 relative transition-all'
-                : 'hidden transition-all'
-            }
-          >
-            <Sidebar
-              open={openSidebar}
-              mode={mode}
-              changeMode={setMode}
-              componentType={setComponentType}
-            />
-          </div>
-          <div className={`flex-1 ${newMode}`}>
-            <Header
-              mode={mode}
-              changeMode={setMode}
-              open={openSidebar}
-              setOpenSidebar={setOpenSidebar}
-            />
-
-            <Container>
-              <React.Suspense fallback="Loading...">
-                <Routes>
-                  {[...SIDEBAR_ROUTES, ...MAIN_ROUTES].map(item => {
-                    const { path, element: Component } = item;
-                    return (
-                      <Route
-                        key={path}
-                        path={path}
-                        element={
-                          <Component
-                            mode={mode}
-                            changeMode={setMode}
-                            open={openSidebar}
-                            setOpenSidebar={setOpenSidebar}
-                          />
-                        }
-                      />
-                    );
-                  })}
-
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </React.Suspense>
-            </Container>
-          </div>
-        </div>
-      )} */}
-
-      {/* <Container> */}
       <React.Suspense fallback="Loading...">
         <Routes>
           {[...AUTH_ROUTES, ...MAIN_ROUTES, ...SIDEBAR_ROUTES].map(item => {
@@ -141,7 +67,6 @@ export function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </React.Suspense>
-      {/* </Container> */}
       <GlobalStyle />
     </BrowserRouter>
   );

@@ -5,7 +5,6 @@ interface IInputProps {
   placeholder?: string;
   value?: string | number;
   name?: string;
-  type?: string;
   className?: string;
   disabled?: boolean;
   maxLength?: number;
@@ -16,11 +15,10 @@ interface IInputProps {
   mode?: any;
 }
 
-const Input = ({
+const Textarea = ({
   placeholder,
   value,
   name,
-  type = 'text',
   className,
   disabled = false,
   maxLength,
@@ -33,19 +31,16 @@ const Input = ({
   const { t } = useTranslation();
 
   return (
-    <div className={`relative  h-[50px]`}>
-      <input
+    <div className={`relative`}>
+      <textarea
         disabled={disabled}
         maxLength={maxLength}
-        type={type}
         name={name}
         value={value}
         id={name}
         style={style}
-        className={`block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${className} ${
-          mode === true
-            ? 'text-black dark:text-black'
-            : 'text-white dark:text-white'
+        className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${className} ${
+          mode === true ? '' : 'dark:text-white'
         }`}
         placeholder={placeholder}
         onChange={e => (onChange ? onChange(e?.target?.value) : null)}
@@ -63,4 +58,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default Textarea;
