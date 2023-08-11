@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { LocalStorage } from '../Storage';
+import { useQuery } from 'react-query';
 
 function Sign__in() {
   const navigate = useNavigate();
@@ -15,7 +16,8 @@ function Sign__in() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState([]);
   const [newUser, setNewUser] = useState([]);
-  // const [cookie, setCookie] = useCookies("access_token");
+  const [loading, setLoading] = useState('');
+  const [valid, setValid] = useState(false);
 
   useEffect(() => {
     async function get() {
@@ -24,59 +26,33 @@ function Sign__in() {
     }
     get();
   }, [newUser]);
-  const [errors, setErrors] = useState(false);
 
-  function handleValidation(e) {
-    if (email.length === 0 && password.length === 0) {
-      setErrors(true);
-      return false;
-    }
-    if (email && password) {
-      toast.success('Successfully');
-      console.log(email, password);
-      return true;
-    }
-  }
-
-  async function handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log(email);
-    if (email.length !== 0 && password.length !== 0) {
-      console.log(password);
-      const res = await axios
-        .post('https://suwater.onrender.com/auth/admins/signin', {
-          email,
-          password,
+    const body = { email, password };
+    if (email && password) {
+      axios
+        .post('https://suwater.onrender.com/auth/admins/signin', body)
+        .then(res => {
+          console.log(res.data);
         })
-        .then(result => {
-          console.log(result, 'result');
-          if (result.data.errors === 1) {
-            toast.warn(result.data.message);
-            console.log(result.data.message);
-            console.log(res);
-          } else {
-            // LocalStorage({ userId });
-            // const expires = new Date();
-            // expires.setTime(expires.getTime() + (43829.1 * 60 * 1000));
-            // setCookie("access_token", userId, { expires });
-            toast.success(result.data.message);
-            console.log(result.data.message);
-            console.log(res);
-            // setTimeout(() => {
-            //   navigate("/");
-            // }, 2500);
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-      console.log(res);
-      // const filter = user.filter((item) => item.email === email);
-      // const userId = filter.map((item) => item._id).toString();
+        .catch(e => console.log(e));
     } else {
       toast.error('Enter full data');
     }
-  }
+  };
+
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ['signin'],
+    queryFn: () => handleSubmit,
+  });
+  console.log(data);
+
+  if (data) return console.log(data);
+
+  // if (isLoading) return <p>Loading...</p>;
+
+  if (error) return toast('An error has occurred');
 
   return (
     <div className="flex h-screen">
@@ -109,11 +85,11 @@ function Sign__in() {
             <div className="relative">
               <input
                 type="text"
-                name="login"
+                name="email"
                 placeholder=" "
                 onChange={e => setEmail(e.target.value)}
                 id="login"
-                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
               />
               <label
                 htmlFor="login"
@@ -138,10 +114,13 @@ function Sign__in() {
                 Password
               </label>
             </div>
-            <NavLink to={''} className="text-[14px] text-blue-600">
+            <NavLink to={'/users'} className="text-[14px] text-blue-600">
               Forgot password?
             </NavLink>
-            <Button className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent">
+            <Button
+              onClick={refetch}
+              className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent"
+            >
               Davom etish
             </Button>
           </div>

@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import suwater from 'media/images/suwater-svg.png';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { LocalStorage } from '../Storage';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-function Sign__up({ mode, changeMode }) {
+function Sign__up() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -19,55 +21,32 @@ function Sign__up({ mode, changeMode }) {
   const [cookie, setCookie] = useCookies();
   const [validation, setValidation] = useState(false);
 
-  function handleValidation(e) {
-    // e.preventDefault();
-    if (
-      name.length === 0 ||
-      email.length === 0 ||
-      password.length === 0 ||
-      company.length === 0 ||
-      phone.length === 0 ||
-      address.length === 0
-    ) {
-      toast.error('Enter full data');
-      setValidation(false);
-    } else {
-      setValidation(true);
-    }
-  }
-
-  async function handleSubmit(e: Event): Promise<void> {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (
-      name.length !== 0 ||
-      email.length !== 0 ||
-      password.length !== 0 ||
-      company.length !== 0 ||
-      phone.length !== 0 ||
-      address.length !== 0
-    ) {
-      const res = await axios.post('https://suwater.onrender.com/auth/signup', {
-        name,
-        company,
-        phone,
-        email,
-        password,
-        address,
-      });
-      if (!res.data.errors) {
-        const userId = res.data.data.map(item => item._id);
-        const expires = new Date();
-        expires.setTime(expires.getTime() + 43829.1 * 60 * 1000);
-        setCookie('access_token', userId, { expires });
-        LocalStorage({ userId });
-        navigate('/');
-      } else {
-        toast.error(res.data.message);
-      }
+    const body = { name, company, email, phone, password, address };
+    if (name && company && email && phone && password && address) {
+      axios
+        .post('https://suwater.onrender.com/auth/admins/signup', body)
+        .then(res => {
+          console.log(res.data);
+          return res.data;
+        })
+        .catch(e => console.log(e));
     } else {
       toast.error('Enter full data');
     }
-  }
+  };
+
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ['signup'],
+    queryFn: () => handleSubmit,
+  });
+
+  if (data) return console.log(data);
+
+  // if (isLoading) return toast.loading('Loading...');
+
+  if (error) return toast('An error has occurred');
 
   return (
     <div className="flex h-screen">
@@ -94,72 +73,113 @@ function Sign__up({ mode, changeMode }) {
         </div>
       </div>
       <div className="w-1/2 flex justify-center items-center">
-        <div className="w-[345px] grid gap-4">
-          <p className="text-[42px] font-sans font-semibold">Sign Up</p>
-          <div className="relative">
-            <input
-              type="text"
-              name="name"
-              placeholder=" "
-              id="name"
-              className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            />
-            <label
-              htmlFor="name"
-              className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+        <form onSubmit={handleSubmit}>
+          <div className="w-[345px] grid gap-4">
+            <p className="text-[42px] font-sans font-semibold">Sign Up</p>
+            <div className="relative">
+              <input
+                type="tel"
+                name="phone"
+                placeholder=" "
+                onChange={e => setPhone(e.target.value)}
+                id="phone"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="phone"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Phone
+              </label>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                name="name"
+                placeholder=" "
+                onChange={e => setName(e.target.value)}
+                id="name"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="name"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Name
+              </label>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                name="email"
+                placeholder=" "
+                onChange={e => setEmail(e.target.value)}
+                id="email"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="email"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Email
+              </label>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                name="company"
+                placeholder=" "
+                onChange={e => setCompany(e.target.value)}
+                id="company"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="company"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Company Name
+              </label>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                name="address"
+                placeholder=" "
+                onChange={e => setAddress(e.target.value)}
+                id="address"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="address"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Address
+              </label>
+            </div>
+            <div className="relative">
+              <input
+                type="password"
+                name="password"
+                placeholder=" "
+                onChange={e => setPassword(e.target.value)}
+                id="password"
+                className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              />
+              <label
+                htmlFor="password"
+                className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
+              >
+                Password
+              </label>
+            </div>
+            <Button
+              onClick={refetch}
+              className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent"
             >
-              Name
-            </label>
+              Davom etish
+            </Button>
           </div>
-          <div className="relative">
-            <input
-              type="text"
-              name="email"
-              placeholder=" "
-              id="email"
-              className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            />
-            <label
-              htmlFor="email"
-              className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
-            >
-              Email
-            </label>
-          </div>
-          <div className="relative">
-            <input
-              type="password"
-              name="password"
-              placeholder=" "
-              id="password"
-              className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            />
-            <label
-              htmlFor="password"
-              className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
-            >
-              Password
-            </label>
-          </div>
-          <div className="relative">
-            <input
-              type="password"
-              name="confirm__password"
-              placeholder=" "
-              id="confirm__password"
-              className="block px-2.5 pb-2.5 pt-4 h-full w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            />
-            <label
-              htmlFor="confirm__password"
-              className={`absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] dark:bg-transparent px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1`}
-            >
-              Confirm Password
-            </label>
-          </div>
-          <Button className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent">
-            Davom etish
-          </Button>
-        </div>
+        </form>
       </div>
     </div>
   );

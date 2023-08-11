@@ -11,6 +11,7 @@ import 'react-app-polyfill/stable';
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -28,18 +29,24 @@ import './index.css';
 
 // Initialize languages
 import './locales/i18n';
+import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+const queryClient = new QueryClient();
 
 root.render(
   <Provider store={store}>
     <HelmetProvider>
       <React.StrictMode>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </React.StrictMode>
+      <ToastContainer autoClose={1500} />
     </HelmetProvider>
   </Provider>,
 );

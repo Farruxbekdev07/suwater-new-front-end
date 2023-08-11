@@ -4,7 +4,7 @@ import Input from 'UI/Input';
 import Select from 'UI/Select';
 import Header from 'app/components/Header';
 import Sidebar from 'app/components/Sidebar';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateUser({
@@ -15,6 +15,40 @@ export default function CreateUser({
 }) {
   const navigate = useNavigate();
   console.log(mode);
+  const [firstName, setFirstName] = useState('');
+  const [last_name, setLast_name] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [region, setRegion] = useState('');
+  const [phone, setPhone] = useState('');
+  const [homePhone, setHomePhone] = useState('');
+  const [street, setStreet] = useState('');
+  const [district, setDistrict] = useState('');
+  const [neighborhood, setNeighborhood] = useState('');
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const body = { name, company, email, phone, password, address }
+  //   if (name && company && email && phone && password && address) {
+  //     axios.post('https://suwater.onrender.com/auth/admins/signup', body).then(res => {
+  //       console.log(res.data);
+  //       return res.data;
+  //     }).catch(e => console.log(e));
+  //   } else {
+  //     toast.error('Enter full data');
+  //   }
+  // }
+
+  // const { isLoading, error, data, refetch } = useQuery({
+  //   queryKey: ['signup'],
+  //   queryFn: () => handleSubmit,
+  // })
+
+  // if (data) return console.log(data);
+
+  // // if (isLoading) return toast.loading('Loading...');
+
+  // if (error) return toast("An error has occurred");
 
   return (
     <div className="flex">
