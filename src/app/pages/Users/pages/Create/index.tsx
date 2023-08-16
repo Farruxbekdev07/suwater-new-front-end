@@ -4,8 +4,10 @@ import Input from 'UI/Input';
 import Select from 'UI/Select';
 import Header from 'app/components/Header';
 import Sidebar from 'app/components/Sidebar';
+import { usePost } from 'app/pages/Hooks';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function CreateUser({
   mode,
@@ -25,30 +27,55 @@ export default function CreateUser({
   const [street, setStreet] = useState('');
   const [district, setDistrict] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
+  const { mutate: userData } = usePost();
+  const userId = JSON.parse(localStorage.getItem('data') || '{}');
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const body = { name, company, email, phone, password, address }
-  //   if (name && company && email && phone && password && address) {
-  //     axios.post('https://suwater.onrender.com/auth/admins/signup', body).then(res => {
-  //       console.log(res.data);
-  //       return res.data;
-  //     }).catch(e => console.log(e));
-  //   } else {
-  //     toast.error('Enter full data');
-  //   }
-  // }
-
-  // const { isLoading, error, data, refetch } = useQuery({
-  //   queryKey: ['signup'],
-  //   queryFn: () => handleSubmit,
-  // })
-
-  // if (data) return console.log(data);
-
-  // // if (isLoading) return toast.loading('Loading...');
-
-  // if (error) return toast("An error has occurred");
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log({
+      firstName,
+      password,
+      email,
+      phone,
+      last_name,
+      region,
+      homePhone,
+      street,
+      district,
+      neighborhood,
+    });
+    if (
+      firstName.length !== 0 &&
+      password.length !== 0 &&
+      email.length !== 0 &&
+      phone.length !== 0 &&
+      last_name.length !== 0 &&
+      region.length !== 0 &&
+      homePhone.length !== 0 &&
+      street.length !== 0 &&
+      district.length !== 0 &&
+      neighborhood
+    ) {
+      const path = '/users';
+      const heroData = {
+        firstName,
+        password,
+        email,
+        phone,
+        last_name,
+        region,
+        homePhone,
+        street,
+        district,
+        neighborhood,
+      };
+      const url = `https://suwater.onrender.com/auth/admins/${userId}/users/add`;
+      const data = { heroData, navigate, url, path };
+      userData(data);
+    } else {
+      toast.error('Enter full data');
+    }
+  };
 
   return (
     <div className="flex">
@@ -87,22 +114,73 @@ export default function CreateUser({
                 </h3>
               </div>
               <div className="mt-7">
-                <form action="">
+                <form onSubmit={handleSubmit}>
                   <div
                     className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl ${
                       mode ? 'bg-gray-100' : 'bg-gray-800 '
                     }`}
                   >
-                    <Input label="Ismi" placeholder=" " name="firstname" />
-                    <Input label="Familiyasi" placeholder=" " name="lastname" />
-                    <Input label="Viloyati" placeholder=" " name="viloyat" />
-                    <Input label="Tuman" placeholder=" " name="tuman" />
-                    <Input label="Mahalla" placeholder=" " name="mahalla" />
-                    <Input label="Ko'chasi" placeholder=" " name="kucha" />
-                    <Input label="Uy raqami" placeholder=" " name="home" />
-                    <Input label="Telefon" placeholder=" " name="phone" />
-                    <Input label="Login" placeholder=" " name="login" />
-                    <Input label="Parol" placeholder=" " name="parol" />
+                    <Input
+                      label="Ismi"
+                      placeholder=" "
+                      name="firstname"
+                      onChange={setFirstName}
+                    />
+                    <Input
+                      label="Familiyasi"
+                      placeholder=" "
+                      name="lastname"
+                      onChange={setLast_name}
+                    />
+                    <Input
+                      label="Viloyati"
+                      placeholder=" "
+                      name="viloyat"
+                      onChange={setRegion}
+                    />
+                    <Input
+                      label="Tuman"
+                      placeholder=" "
+                      name="tuman"
+                      onChange={setDistrict}
+                    />
+                    <Input
+                      label="Mahalla"
+                      placeholder=" "
+                      name="mahalla"
+                      onChange={setNeighborhood}
+                    />
+                    <Input
+                      label="Ko'chasi"
+                      placeholder=" "
+                      name="kucha"
+                      onChange={setStreet}
+                    />
+                    <Input
+                      label="Uy raqami"
+                      placeholder=" "
+                      name="home"
+                      onChange={setHomePhone}
+                    />
+                    <Input
+                      label="Telefon"
+                      placeholder=" "
+                      name="phone"
+                      onChange={setPhone}
+                    />
+                    <Input
+                      label="Login"
+                      placeholder=" "
+                      name="login"
+                      onChange={setEmail}
+                    />
+                    <Input
+                      label="Parol"
+                      placeholder=" "
+                      name="parol"
+                      type="password"
+                      onChange={setPassword}
+                    />
                   </div>
                   <div className="flex justify-end mt-5 gap-5">
                     <Button

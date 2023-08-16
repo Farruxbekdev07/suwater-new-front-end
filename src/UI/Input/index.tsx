@@ -48,7 +48,13 @@ const Input = ({
             : 'text-white dark:text-white'
         }`}
         placeholder={placeholder}
-        onChange={e => (onChange ? onChange(e?.target?.value) : null)}
+        onChange={e => {
+          if (type === 'file') {
+            return onChange ? onChange(e?.target?.files) : null;
+          } else {
+            return onChange ? onChange(e?.target?.value) : null;
+          }
+        }}
         onBlur={onBlur}
       />
       {label && (

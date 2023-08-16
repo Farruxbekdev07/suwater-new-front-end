@@ -26,6 +26,18 @@ export function App() {
   const [newMode, setNewMode] = React.useState('');
   const [openSidebar, setOpenSidebar] = React.useState(true);
   const [componentType, setComponentType] = React.useState(false);
+  // const ID = JSON.parse(localStorage.getItem('data') || '{}');
+  // const [route, setRoute] = React.useState<any[]>([]);
+
+  // React.useEffect(() => {
+  //   if (ID) {
+  //     setRoute(MAIN_ROUTES);
+  //     console.log(route);
+  //   } else {
+  //     setRoute(AUTH_ROUTES);
+  //     console.log(route);
+  //   }
+  // }, [ID])
 
   React.useEffect(() => {
     if (mode === true) {
@@ -46,7 +58,7 @@ export function App() {
       </Helmet>
       <React.Suspense fallback="Loading...">
         <Routes>
-          {[...AUTH_ROUTES, ...MAIN_ROUTES, ...SIDEBAR_ROUTES].map(item => {
+          {[...MAIN_ROUTES, ...AUTH_ROUTES, ...SIDEBAR_ROUTES].map(item => {
             const { path, element: Component } = item;
             return (
               <Route
@@ -63,7 +75,6 @@ export function App() {
               />
             );
           })}
-
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </React.Suspense>

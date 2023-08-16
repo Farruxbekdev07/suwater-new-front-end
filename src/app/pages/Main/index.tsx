@@ -72,8 +72,8 @@ function Main({ mode, setMode, openSidebar, setOpenSidebar }) {
           }`}
         >
           <Container>
-            <div className={`px-5 grid gap-5 relative top-[80px]`}>
-              <div className="relative overflow-hidden top-[80px]">
+            <div className={`px-5 grid gap-5 relative top-[40px]`}>
+              <div className="relative overflow-hidden">
                 <Map
                   center={{ lat: 40.1258659569295, lng: 67.82735824584962 }}
                   zoom={9}

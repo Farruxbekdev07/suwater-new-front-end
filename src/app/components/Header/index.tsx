@@ -1,13 +1,16 @@
-import React from 'react';
-import {
-  ListBulletIcon,
-  QueueListIcon,
-  ClipboardDocumentListIcon,
-} from '@heroicons/react/24/outline';
+import React, { useEffect, useState } from 'react';
+import { QueueListIcon } from '@heroicons/react/24/outline';
 import Button from 'UI/Button';
 import usericon from 'media/images/user-icon2.png';
+import { GetUserData } from 'app/pages/Storage';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ mode, changeMode, open, setOpenSidebar }) {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any[]>([]);
+  const [userData, setUserData] = useState<any[]>([]);
+  const userId = JSON.parse(localStorage.getItem('data') || '{}');
+
   const handleToggle = () => {
     if (open) {
       setOpenSidebar(false);
@@ -15,6 +18,16 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
       setOpenSidebar(true);
     }
   };
+
+  useEffect(() => {
+    async function get() {
+      const data = await GetUserData(navigate);
+      console.log(data);
+      setUserData([data]);
+    }
+    get();
+  }, []);
+
   return (
     <header
       className={`${
@@ -49,7 +62,13 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
             mode ? 'text-black dark:text-black' : 'text-white dark:text-white'
           }`}
         >
-          <p className="font-sans">Farrukhbek Mirzakulov</p>
+          {userData?.map(item => {
+            return (
+              <p className="font-sans">
+                {item?.name} {item?.last_name}
+              </p>
+            );
+          })}
           <div>
             <img src={usericon} alt="" className="h-[50px] cursor-pointer" />
           </div>

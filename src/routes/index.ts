@@ -93,4 +93,28 @@ export const MAIN_ROUTES: IRoute[] = [
     path: paths.SEND__MESSAGES,
     element: SendMessage,
   },
+  {
+    path: paths.MAIN,
+    element: Main,
+  },
+  {
+    path: paths.USERS,
+    element: Users,
+  },
+  {
+    path: paths.APPEALS,
+    element: Appeals,
+  },
+  {
+    path: paths.SERVICES,
+    element: Services,
+  },
+  {
+    path: paths.MESSAGES,
+    element: Messages,
+  },
+  {
+    path: paths.SETTINGS,
+    element: Settings,
+  },
 ];

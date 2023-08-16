@@ -9,15 +9,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { LocalStorage } from '../Storage';
 import { useQuery } from 'react-query';
+import { usePost } from '../Hooks';
 
 function Sign__in() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<any[]>([]);
   const [newUser, setNewUser] = useState([]);
-  const [loading, setLoading] = useState('');
-  const [valid, setValid] = useState(false);
+  const [userId, setUserId] = useState('');
+  const { mutate: signInData } = usePost();
 
   useEffect(() => {
     async function get() {
@@ -27,32 +28,24 @@ function Sign__in() {
     get();
   }, [newUser]);
 
+  const handleClick = e => {
+    e.preventDefault();
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-    const body = { email, password };
-    if (email && password) {
-      axios
-        .post('https://suwater.onrender.com/auth/admins/signin', body)
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(e => console.log(e));
+    const path = '/';
+    const url = 'https://suwater.onrender.com/auth/admins/signin';
+    if (email.length !== 0 && password.length !== 0) {
+      const ID = user?.filter(item => item.email === email)[0]?._id;
+      const heroData = { email, password };
+      const data = { heroData, navigate, url, setUserId, path };
+      LocalStorage(ID);
+      signInData(data);
     } else {
       toast.error('Enter full data');
     }
   };
-
-  const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ['signin'],
-    queryFn: () => handleSubmit,
-  });
-  console.log(data);
-
-  if (data) return console.log(data);
-
-  // if (isLoading) return <p>Loading...</p>;
-
-  if (error) return toast('An error has occurred');
 
   return (
     <div className="flex h-screen">
@@ -117,10 +110,8 @@ function Sign__in() {
             <NavLink to={'/users'} className="text-[14px] text-blue-600">
               Forgot password?
             </NavLink>
-            <Button
-              onClick={refetch}
-              className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent"
-            >
+            <button onClick={handleClick}>click</button>
+            <Button className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent">
               Davom etish
             </Button>
           </div>

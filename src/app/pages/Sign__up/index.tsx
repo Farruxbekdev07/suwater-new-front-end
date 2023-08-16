@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { LocalStorage } from '../Storage';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { usePost } from '../Hooks';
 
 function Sign__up() {
   const navigate = useNavigate();
@@ -20,33 +21,27 @@ function Sign__up() {
   const [address, setAddress] = useState('');
   const [cookie, setCookie] = useCookies();
   const [validation, setValidation] = useState(false);
+  const { mutate: signUpData } = usePost();
 
   const handleSubmit = e => {
     e.preventDefault();
-    const body = { name, company, email, phone, password, address };
-    if (name && company && email && phone && password && address) {
-      axios
-        .post('https://suwater.onrender.com/auth/admins/signup', body)
-        .then(res => {
-          console.log(res.data);
-          return res.data;
-        })
-        .catch(e => console.log(e));
+    console.log({ name, password, email, phone, address, company });
+    if (
+      name.length !== 0 &&
+      password.length !== 0 &&
+      email.length !== 0 &&
+      phone.length !== 0 &&
+      address.length !== 0 &&
+      company
+    ) {
+      const heroData = { name, password, email, phone, address, company };
+      const url = 'https://suwater.onrender.com/auth/signup';
+      const data = { heroData, navigate, url };
+      signUpData(data);
     } else {
       toast.error('Enter full data');
     }
   };
-
-  const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ['signup'],
-    queryFn: () => handleSubmit,
-  });
-
-  if (data) return console.log(data);
-
-  // if (isLoading) return toast.loading('Loading...');
-
-  if (error) return toast('An error has occurred');
 
   return (
     <div className="flex h-screen">
@@ -172,10 +167,7 @@ function Sign__up() {
                 Password
               </label>
             </div>
-            <Button
-              onClick={refetch}
-              className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent"
-            >
+            <Button className="flex justify-center items-center h-[50px] rounded-xl bg-black text-white dark:bg-black dark:text-white border-transparent dark:border-transparent">
               Davom etish
             </Button>
           </div>

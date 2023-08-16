@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'UI/Button';
 import Container from 'UI/Container';
 import Input from 'UI/Input';
@@ -7,6 +7,8 @@ import Header from 'app/components/Header';
 import Sidebar from 'app/components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import Textarea from 'UI/Textarea';
+import { usePost } from 'app/pages/Hooks';
+import { toast } from 'react-toastify';
 
 export default function SendMessage({
   mode,
@@ -16,6 +18,50 @@ export default function SendMessage({
 }) {
   const navigate = useNavigate();
   console.log(mode);
+  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
+  const [region, setRegion] = useState('');
+  const [information, setInformation] = useState('');
+  const [image, setImage] = useState([]);
+  const [district, setDistrict] = useState('');
+  const { mutate: serviceData } = usePost();
+  const userId = JSON.parse(localStorage.getItem('data') || '{}');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log({
+      name,
+      title,
+      region,
+      image: image[0],
+      information,
+      district,
+    });
+    if (
+      name.length !== 0 &&
+      title.length !== 0 &&
+      information.length !== 0 &&
+      image.length !== 0 &&
+      region.length !== 0 &&
+      district.length !== 0
+    ) {
+      var formData = new FormData();
+      formData.append('image', image[0]);
+      formData.append('province', region);
+      formData.append('district', district);
+      formData.append('information', information);
+      formData.append('title', title);
+
+      const path = '/services';
+      const headers = { 'Content-Type': 'multipart/form-data' };
+      // const heroData = { name, phone, serviceInformation, image: image[0] };
+      const url = `https://suwater.onrender.com/notifications/${userId}`;
+      const data = { formData, navigate, url, path, headers };
+      serviceData(data);
+    } else {
+      toast.error('Enter full data');
+    }
+  };
 
   return (
     <div className="flex">
@@ -54,19 +100,48 @@ export default function SendMessage({
                 </h3>
               </div>
               <div className="mt-7">
-                <form action="">
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                   <div
                     className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl ${
                       mode ? 'bg-gray-100' : 'bg-gray-800 '
                     }`}
                   >
                     <div>
-                      <Input type="file" className="h-full" />
+                      <Input
+                        type="file"
+                        className="h-full"
+                        name="testImage"
+                        onChange={setImage}
+                      />
                     </div>
                     <div className="grid gap-5">
                       <div className="grid gap-5">
-                        <Input label="Viloyat" placeholder=" " name="name" />
-                        <Input label="Tuman" placeholder=" " name="phone" />
+                        <Input
+                          label="Ismi"
+                          placeholder=" "
+                          name="name"
+                          onChange={setName}
+                        />
+                        <Input
+                          label="Mavzu"
+                          placeholder=" "
+                          name="title"
+                          onChange={setTitle}
+                        />
+                      </div>
+                      <div className="grid gap-5">
+                        <Input
+                          label="Viloyat"
+                          placeholder=" "
+                          name="region"
+                          onChange={setRegion}
+                        />
+                        <Input
+                          label="Tuman"
+                          placeholder=" "
+                          name="district"
+                          onChange={setDistrict}
+                        />
                       </div>
                       <div>
                         <Textarea
@@ -74,6 +149,7 @@ export default function SendMessage({
                           placeholder=" "
                           name="information"
                           className="h-[120px]"
+                          onChange={setInformation}
                         />
                       </div>
                       <div className="flex justify-end gap-5">
