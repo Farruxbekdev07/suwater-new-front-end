@@ -20,8 +20,8 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
     <div
       className={`relative overflow-x-auto ${
         mode === true
-          ? 'border border-gray-300 dark:border-gray-300 dark:text-black text-black'
-          : 'dark:bg-gray-800 bg-gray-800 dark:text-gray-400 text-gray-400 border border-gray-700 dark:border-gray-700'
+          ? 'border border-gray-300 text-black'
+          : 'bg-gray-800 text-gray-400 border border-gray-700'
       }`}
     >
       <div

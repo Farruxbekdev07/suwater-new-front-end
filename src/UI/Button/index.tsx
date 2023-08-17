@@ -30,10 +30,8 @@ const Button = ({
 
   const buttonTypes = {
     primary: 'bg-blue-700 text-white border-blue-700',
-    outline: `bg-transparent border-gray-600 hover:text-blue-700 hover:border-blue-700 hover:opacity-100 dark:border-gray-100 ${
-      mode === true
-        ? 'text-gray-950 dark:text-blue-600 border border-blue-600 dark:border-blue-600'
-        : 'text-red-950 dark:text-gray-50'
+    outline: `bg-transparent border-gray-600 hover:text-blue-700 hover:border-blue-700 hover:opacity-100 ${
+      mode === true ? 'text-blue-800 border border-blue-600 ' : 'text-white'
     }`,
   };
 

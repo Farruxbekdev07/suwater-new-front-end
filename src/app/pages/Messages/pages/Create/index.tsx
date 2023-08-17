@@ -81,19 +81,13 @@ export default function SendMessage({
           open={openSidebar}
           setOpenSidebar={setOpenSidebar}
         />
-        <div
-          className={`w-full pb-[50px] ${
-            mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'
-          }`}
-        >
+        <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
           <Container>
             <div className={`px-5 grid gap-5 relative top-[80px]`}>
               <div>
                 <h3
-                  className={`text-[32px] text-white font-[600] ${
-                    mode === true
-                      ? 'dark:text-black'
-                      : 'text-white dark:text-white'
+                  className={`text-[32px] font-[600] ${
+                    mode === true ? 'text-black' : 'text-white'
                   }`}
                 >
                   Xabar yozish

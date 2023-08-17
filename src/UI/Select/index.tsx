@@ -39,8 +39,8 @@ const Select = ({
       {label && (
         <label
           htmlFor={name}
-          className={`block mb-2 text-sm font-sans text-gray-700 dark:text-gray-50 ${
-            mode === true ? 'dark:text-white' : ''
+          className={`block mb-2 text-sm font-sans text-gray-700 ${
+            mode === true ? '' : ''
           }`}
         >
           {t(label ?? '')}

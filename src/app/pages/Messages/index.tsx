@@ -90,9 +90,7 @@ function Messages({ mode, changeMode, openSidebar, setOpenSidebar }) {
           open={openSidebar}
           setOpenSidebar={setOpenSidebar}
         />
-        <div
-          className={`w-full ${mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'}`}
-        >
+        <div className={`w-full ${mode ? '' : 'bg-gray-900 p-0'}`}>
           <Container>
             <div className={`mb-[70px] grid gap-5 relative top-[80px]`}>
               <div className="px-5 w-100 relative">

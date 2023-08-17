@@ -31,9 +31,7 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
   return (
     <header
       className={`${
-        mode
-          ? 'bg-white dark:bg-white shadow-xl'
-          : 'bg-gray-800 dark:bg-gray-900 shadow-gray-700 shadow-xl'
+        mode ? 'bg-white shadow-xl' : 'bg-gray-900 shadow-gray-700 shadow-xl'
       } h-[80px] w-full z-50 fixed flex items-center justify-between pr-14px pl-3 ${
         open ? 'pr-[270px]' : 'pr-[14px]'
       }`}
@@ -48,18 +46,14 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
         />
       </div>
       <div className="flex gap-16 items-center">
-        <div
-          className={`flex gap-2 ${
-            mode ? 'text-black dark:text-black' : 'text-white dark:text-white'
-          }`}
-        >
+        <div className={`flex gap-2 ${mode ? 'text-black' : 'text-white'}`}>
           <p className="font-sans cursor-pointer">UZB</p>
           <p className="font-sans cursor-pointer">ENG</p>
           <p className="font-sans cursor-pointer">RUS</p>
         </div>
         <div
           className={`flex items-center gap-3 ${
-            mode ? 'text-black dark:text-black' : 'text-white dark:text-white'
+            mode ? 'text-black' : 'text-white'
           }`}
         >
           {userData?.map(item => {

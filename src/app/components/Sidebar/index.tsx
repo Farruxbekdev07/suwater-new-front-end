@@ -19,19 +19,15 @@ const Sidebar = ({ mode, changeMode, open }) => {
         className="fixed top-0 left-0 z-30 w-64 max-[640px]:w-20 h-screen"
       >
         <div
-          className={`h-full px-3 pb-4 overflow-hidden flex flex-col justify-between bg-white ${
-            mode === true
-              ? 'dark:bg-gray-200 bg-blue-200'
-              : 'bg-gray-800 dark:text-black dark:bg-gray-800'
+          className={`h-full px-3 pb-4 overflow-hidden flex flex-col justify-between ${
+            mode === true ? 'bg-gray-200' : 'bg-gray-800 text-black'
           }`}
         >
           <ul className="space-y-2">
             <div className="h-[80px] bg-transparent flex items-center justify-between px-4">
               <p
                 className={`text-[26px] font-bold font-sans italic ${
-                  mode
-                    ? 'text-blue-700 dark:text-blue-700'
-                    : 'text-white dark:text-white'
+                  mode ? 'text-blue-700' : 'text-white'
                 }`}
               >
                 SuWater
@@ -46,11 +42,9 @@ const Sidebar = ({ mode, changeMode, open }) => {
                     to={path}
                     className={({ isActive }) =>
                       isActive
-                        ? `text-white dark:text-white border border-[transparent] bg-blue-700 dark:bg-blue-700 flex items-center max-[640px]:justify-center p-2 rounded-xl`
-                        : `flex items-center max-[640px]:justify-center p-2 ${
-                            mode
-                              ? 'text-black dark:text-black'
-                              : 'text-white dark:text-white'
+                        ? `text-white border border-[transparent] bg-blue-700 flex items-center max-[640px]:justify-center p-2 rounded-xl`
+                        : `flex items-center max-[640px]:justify-center p-2 text-black ${
+                            mode ? 'text-black' : 'text-white'
                           }`
                     }
                     // className={({isActive}) => isActive ? 'active' : ''}

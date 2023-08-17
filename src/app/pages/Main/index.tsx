@@ -66,11 +66,7 @@ function Main({ mode, setMode, openSidebar, setOpenSidebar }) {
           setOpenSidebar={setOpenSidebar}
         />
 
-        <div
-          className={`w-full pb-[50px] ${
-            mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'
-          }`}
-        >
+        <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
           <Container>
             <div className={`px-5 grid gap-5 relative top-[40px]`}>
               <div className="relative overflow-hidden">

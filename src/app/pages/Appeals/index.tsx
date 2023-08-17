@@ -282,11 +282,7 @@ function Appeals({ mode, changeMode, openSidebar, setOpenSidebar }) {
             open={openSidebar}
             setOpenSidebar={setOpenSidebar}
           />
-          <div
-            className={`w-full pb-[50px] ${
-              mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'
-            }`}
-          >
+          <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
             <Container>
               <div className={`grid gap-5 relative`}>
                 <div

@@ -40,9 +40,7 @@ export default function Table({
       <div className="relative overflow-x-auto shadow-md rounded-xl">
         <table
           className={`w-full text-sm text-left bg-gray-100 ${
-            mode === true
-              ? ''
-              : 'dark:bg-gray-700 text-gray-700 dark:text-gray-400'
+            mode === true ? '' : 'bg-gray-700 text-gray-400'
           }`}
         >
           <tbody className="overflow-hidden border border-gray-500">
@@ -52,7 +50,7 @@ export default function Table({
                 className={`rounded-xl border ${
                   mode === true
                     ? 'bg-white border-gray-200 hover:bg-gray-200'
-                    : 'dark:bg-gray-800 border-gray-700 hover:bg-gray-600'
+                    : 'bg-gray-800 border-gray-700 hover:opacity-75'
                 }`}
               >
                 {columns.map((column, index) => (
@@ -77,23 +75,23 @@ export default function Table({
             containerClassName={`flex w-[fit-content] bg-gray-800 text-[16px] rounded-[10px]`}
             pageLinkClassName={`flex justify-center items-center w-[45px] h-[40px] border border-gray-300 leading-tight hover:text-gray-700 ${
               mode === true
-                ? 'text-black hover:bg-gray-200 dark:bg-gray-200 dark:border-gray-400 dark:text-black dark:hover:bg-gray-300 dark:hover:text-black'
-                : 'text-gray-400 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                ? 'text-black hover:bg-gray-200 bg-gray-200 border-gray-400 text-black hover:bg-gray-300 hover:text-black'
+                : 'text-gray-400 hover:bg-gray-100 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
             previousLinkClassName={`flex justify-center items-center w-[fit-content] px-3 h-[40px] border border-gray-300 rounded-l-[10px] ${
               mode === true
-                ? 'leading-tight hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-200 dark:border-gray-400 dark:text-black dark:hover:bg-gray-300 dark:hover:text-black'
-                : 'leading-tight hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                ? 'leading-tight hover:bg-gray-200 hover:text-gray-700 bg-gray-200 border-gray-400 text-black hover:bg-gray-300 hover:text-black'
+                : 'leading-tight hover:bg-gray-100 hover:text-gray-700 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
             nextLinkClassName={`flex justify-center items-center w-[fit-content] px-3 h-[40px] border border-gray-300 rounded-r-[10px] leading-tight ${
               mode === true
-                ? 'hover:bg-gray-200 hover:text-gray-200 dark:bg-gray-200 dark:border-gray-400 dark:text-black dark:hover:bg-gray-300 dark:hover:text-black'
-                : 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                ? 'hover:bg-gray-200 hover:text-gray-200 bg-gray-200 border-gray-400 text-black hover:bg-gray-300 hover:text-black'
+                : 'hover:bg-gray-100 hover:text-gray-700 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
             activeLinkClassName={`text-blue-600 border ${
               mode === true
-                ? 'border-gray-300 hover:bg-blue-100 hover:text-white dark:border-blue-700 dark:bg-blue-700 dark:text-white'
-                : 'border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-500 dark:bg-gray-700 dark:text-white'
+                ? 'border-gray-300 hover:bg-blue-100 hover:text-white border-blue-700 bg-blue-700 text-white'
+                : 'border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 border-gray-500 bg-gray-700 text-white'
             }`}
           />
         ) : (
