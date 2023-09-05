@@ -6,22 +6,33 @@ import { NavLink } from 'react-router-dom';
 import Button from 'UI/Button';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 import suwater from 'media/images/suwater-svg.png';
+import { useDispatch } from 'react-redux';
+import { logOut } from 'store/reducer';
 
 const Sidebar = ({ mode, changeMode, open }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   if (open === false) return null;
+
+  const logout = () => {
+    dispatch(logOut());
+    setTimeout(() => {
+      navigate('/sign-in');
+    }, 1000);
+  };
 
   return (
     <>
       <aside
-        id="default-sidebar"
-        className="fixed top-0 left-0 z-30 w-64 max-[640px]:w-20 h-screen"
+        className={`fixed top-0 left-0 z-30 h-screen ${
+          open ? 'w-64 max-[640px]:w-20' : ''
+        }`}
       >
         <div
-          className={`h-full px-3 pb-4 overflow-hidden flex flex-col justify-between ${
+          className={`h-full px-3 pb-4 flex flex-col justify-between ${
             mode === true ? 'bg-gray-200' : 'bg-gray-800 text-black'
-          }`}
+          } ${open ? '' : 'w-32]'}`}
         >
           <ul className="space-y-2">
             <div className="h-[80px] bg-transparent flex items-center justify-between px-4">
@@ -47,7 +58,6 @@ const Sidebar = ({ mode, changeMode, open }) => {
                             mode ? 'text-black' : 'text-white'
                           }`
                     }
-                    // className={({isActive}) => isActive ? 'active' : ''}
                   >
                     <Icon className={`w-6 h-6 font-medium mr-2`} />
                     <span className="max-[640px]:hidden">{t(label)}</span>
@@ -57,12 +67,8 @@ const Sidebar = ({ mode, changeMode, open }) => {
             })}
           </ul>
           <div>
-            <Button
-              type="outline"
-              onClick={() => navigate('/sign-up')}
-              mode={mode}
-            >
-              Sign
+            <Button onClick={logout} mode={mode}>
+              Log Out
             </Button>
             <Button
               type="outline"

@@ -1,5 +1,3 @@
-const userDataId = JSON.parse(localStorage.getItem('data') || '{}');
-
 const paths = {
   //  ROUTES
   MAIN: '/',

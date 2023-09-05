@@ -24,11 +24,10 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
           : 'bg-gray-800 text-gray-400 border border-gray-700'
       }`}
     >
-      <div
-        onClick={toggle}
-        className="flex justify-between items-center px-5 py-2 pr-1"
-      >
-        <p className="font-[500] font-sans text-[16px]">{dataSource?.name}</p>
+      <div className="flex justify-between items-center px-5 py-2 pr-1">
+        <p onClick={toggle} className="font-[500] font-sans text-[16px]">
+          {dataSource?.name}
+        </p>
         <Button type="outline" className="border-0" mode={mode}>
           {dataSource?.action}
         </Button>

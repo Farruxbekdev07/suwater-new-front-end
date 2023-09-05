@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export function LocalStorage(data: any): void {
-  localStorage.setItem('data', JSON.stringify(data));
+export function LocalStorage(key: any, data: any): void {
+  localStorage.setItem(key, JSON.stringify(data));
 }
 
 export async function GetUserData(navigate: any): Promise<any> {

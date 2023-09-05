@@ -6,7 +6,7 @@ import Container from 'UI/Container';
 import Sidebar from 'app/components/Sidebar';
 import Header from 'app/components/Header';
 
-function Appeals({ mode, changeMode, openSidebar, setOpenSidebar }) {
+function Appeals({ mode }) {
   const [flex, setFlex] = React.useState('block');
   const [hidden, setHidden] = React.useState('hidden');
 
@@ -265,57 +265,34 @@ function Appeals({ mode, changeMode, openSidebar, setOpenSidebar }) {
 
   return (
     <>
-      <div className="flex">
-        <div
-          className={
-            openSidebar
-              ? 'w-64 max-[640px]:w-20 relative transition-all'
-              : 'hidden transition-all'
-          }
-        >
-          <Sidebar open={openSidebar} mode={mode} changeMode={changeMode} />
-        </div>
-        <div className="flex-1">
-          <Header
-            mode={mode}
-            changeMode={changeMode}
-            open={openSidebar}
-            setOpenSidebar={setOpenSidebar}
-          />
-          <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
-            <Container>
-              <div className={`grid gap-5 relative`}>
-                <div
-                  className={`${flex} justify-between w-100 relative top-[80px]`}
+      <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
+        <div className={`grid gap-5 relative`}>
+          <div className={`${flex} justify-between w-100 relative top-[80px]`}>
+            <div className="px-5 w-100">
+              <div className="mb-5">
+                <p
+                  className={`text-[32px] font-[600] font-sans ${
+                    mode === true ? 'text-black' : 'text-white'
+                  }`}
                 >
-                  <div className="px-5 w-100">
-                    <div className="mb-5">
-                      <p
-                        className={`text-[32px] font-[600] font-sans ${
-                          mode === true ? 'text-black' : 'text-white'
-                        }`}
-                      >
-                        Murojatlar
-                      </p>
-                    </div>
-                    <Table
-                      dataSource={dataSource}
-                      columns={columns}
-                      pagination={true}
-                      totalDocs={20}
-                      mode={mode}
-                    />
-                  </div>
-                  <RightModal
-                    hidden={hidden}
-                    flex={flex}
-                    setHidden={setHidden}
-                    setFlex={setFlex}
-                    mode={mode}
-                  />
-                </div>
+                  Murojatlar
+                </p>
               </div>
-            </Container>
+              <Table
+                dataSource={dataSource}
+                columns={columns}
+                pagination={true}
+                totalDocs={20}
+                mode={mode}
+              />
+            </div>
+            <RightModal
+              hidden={hidden}
+              flex={flex}
+              setHidden={setHidden}
+              setFlex={setFlex}
+              mode={mode}
+            />
           </div>
         </div>
       </div>

@@ -4,12 +4,18 @@ import Button from 'UI/Button';
 import usericon from 'media/images/user-icon2.png';
 import { GetUserData } from 'app/pages/Storage';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-function Header({ mode, changeMode, open, setOpenSidebar }) {
+function Header({ mode, open, setOpenSidebar }) {
   const navigate = useNavigate();
   const [user, setUser] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
   const userId = JSON.parse(localStorage.getItem('data') || '{}');
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = language => {
+    i18n.changeLanguage(language);
+  };
 
   const handleToggle = () => {
     if (open) {
@@ -32,7 +38,7 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
     <header
       className={`${
         mode ? 'bg-white shadow-xl' : 'bg-gray-900 shadow-gray-700 shadow-xl'
-      } h-[80px] w-full z-50 fixed flex items-center justify-between pr-14px pl-3 ${
+      } h-[80px] w-full z-50 fixed flex items-center justify-between ${
         open ? 'pr-[270px]' : 'pr-[14px]'
       }`}
     >
@@ -47,9 +53,24 @@ function Header({ mode, changeMode, open, setOpenSidebar }) {
       </div>
       <div className="flex gap-16 items-center">
         <div className={`flex gap-2 ${mode ? 'text-black' : 'text-white'}`}>
-          <p className="font-sans cursor-pointer">UZB</p>
-          <p className="font-sans cursor-pointer">ENG</p>
-          <p className="font-sans cursor-pointer">RUS</p>
+          <p
+            className="font-sans cursor-pointer"
+            onClick={() => changeLanguage('uz')}
+          >
+            UZB
+          </p>
+          <p
+            className="font-sans cursor-pointer"
+            onClick={() => changeLanguage('en')}
+          >
+            ENG
+          </p>
+          <p
+            className="font-sans cursor-pointer"
+            onClick={() => changeLanguage('ru')}
+          >
+            RUS
+          </p>
         </div>
         <div
           className={`flex items-center gap-3 ${

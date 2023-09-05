@@ -32,3 +32,25 @@ export const i18n = i18next
       escapeValue: false, // not needed for react as it escapes by default
     },
   });
+// const resources = {
+//   en: {
+//     translation: translationEN
+//   },
+//   de: {
+//     translation: translationDE
+//   }
+// };
+
+// i18n
+//   .use(detector)
+//   .use(reactI18nextModule) // passes i18n down to react-i18next
+//   .init({
+//     resources,
+//     fallbackLng: "en", // use en if detected lng is not available
+
+//     keySeparator: false, // we do not use keys in form messages.welcome
+
+//     interpolation: {
+//       escapeValue: false // react already safes from xss
+//     }
+//   });

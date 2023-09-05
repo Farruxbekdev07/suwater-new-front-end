@@ -43,6 +43,15 @@ export default function Table({
             mode === true ? '' : 'bg-gray-700 text-gray-400'
           }`}
         >
+          <thead className="h-[50px]">
+            <tr>
+              {columns.map((column, index) => (
+                <th className="px-6 py-4" key={index}>
+                  {column?.dataIndex.toUpperCase()}
+                </th>
+              ))}
+            </tr>
+          </thead>
           <tbody className="overflow-hidden border border-gray-500">
             {dataSource?.map((data, index) => (
               <tr
@@ -54,7 +63,7 @@ export default function Table({
                 }`}
               >
                 {columns.map((column, index) => (
-                  <td key={index} className="px-6 py-4 ">
+                  <td key={index} className="px-6 py-4">
                     {column?.render
                       ? column?.render(data[column?.dataIndex], data)
                       : data[column?.dataIndex]}

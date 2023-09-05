@@ -5,11 +5,11 @@ import suwater from 'media/images/suwater-svg.png';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { LocalStorage } from '../Storage';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { usePost } from '../Hooks';
+import { setToken } from '../Cookie';
 
 function Sign__up() {
   const navigate = useNavigate();
@@ -19,28 +19,31 @@ function Sign__up() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
-  const [cookie, setCookie] = useCookies();
-  const [validation, setValidation] = useState(false);
   const { mutate: signUpData } = usePost();
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log({ name, password, email, phone, address, company });
-    if (
-      name.length !== 0 &&
-      password.length !== 0 &&
-      email.length !== 0 &&
-      phone.length !== 0 &&
-      address.length !== 0 &&
-      company
-    ) {
-      const heroData = { name, password, email, phone, address, company };
-      const url = 'https://suwater.onrender.com/auth/signup';
-      const data = { heroData, navigate, url };
-      signUpData(data);
-    } else {
-      toast.error('Enter full data');
-    }
+    // if (
+    //   name.length !== 0 &&
+    //   password.length !== 0 &&
+    //   email.length !== 0 &&
+    //   phone.length !== 0 &&
+    //   address.length !== 0 &&
+    //   company
+    // ) {
+    //   const heroData = { name, password, email, phone, address, company };
+    //   const url = 'https://suwater.onrender.com/auth/signup';
+    //   const token = {
+    //     token: email,
+    //     expired: "",
+    //   }
+    //   setToken(token);
+    //   const data = { heroData, navigate, url };
+    //   signUpData(data);
+    // } else {
+    //   toast.error('Enter full data');
+    // }
   };
 
   return (

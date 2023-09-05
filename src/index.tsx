@@ -21,8 +21,6 @@ import { App } from 'app/index';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import { configureAppStore } from 'store/configureStore';
-
 import reportWebVitals from 'reportWebVitals';
 
 import './index.css';
@@ -31,23 +29,39 @@ import './index.css';
 import './locales/i18n';
 import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+// import client from 'graphql';
+import { persistor, store } from 'store';
+import { PersistGate } from 'redux-persist/integration/react';
+import client from './graphql/index';
+import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
+import { __DEV__ } from '@apollo/client/utilities/globals';
 
-const store = configureAppStore();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 const queryClient = new QueryClient();
 
+if (__DEV__) {
+  // Adds messages only in a dev environment
+  loadDevMessages();
+  loadErrorMessages();
+}
+
 root.render(
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </React.StrictMode>
-      <ToastContainer autoClose={1500} />
-    </HelmetProvider>
+    <ApolloProvider client={client}>
+      <PersistGate loading={null} persistor={persistor}>
+        <HelmetProvider>
+          <React.StrictMode>
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
+          </React.StrictMode>
+          <ToastContainer autoClose={1500} />
+        </HelmetProvider>
+      </PersistGate>
+    </ApolloProvider>
   </Provider>,
 );
 

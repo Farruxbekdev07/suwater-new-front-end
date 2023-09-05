@@ -39,8 +39,8 @@ const Textarea = ({
         value={value}
         id={name}
         style={style}
-        className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-700 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${className} ${
-          mode === true ? '' : ''
+        className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-500 bg-transparent rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${className} ${
+          mode === true ? 'text-gray-200' : ''
         }`}
         placeholder={placeholder}
         onChange={e => (onChange ? onChange(e?.target?.value) : null)}

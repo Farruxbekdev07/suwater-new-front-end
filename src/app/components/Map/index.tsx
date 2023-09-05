@@ -1,32 +1,65 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import React from 'react';
+import ReactMapboxGl, { GeoJSONLayer } from 'react-mapbox-gl';
+import MapboxGl from 'mapbox-gl';
+import { useData } from './components/hooks';
+import '../../../index.css';
 
-type Props = {
-  center: { lat: number; lng: number };
-  zoom?: number;
-  children?: ReactNode;
-};
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-function Map({ center, children, zoom }: Props) {
-  const [isRendered, setIsRendered] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsRendered(true);
-    }, 0);
-  }, []);
-
-  const mapLayer = {
-    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
-  };
-
-  return isRendered ? (
-    <MapContainer zoomControl={false} center={center} zoom={zoom ?? 13}>
-      <TileLayer attribution={mapLayer.attribution} url={mapLayer.url} />
-      {children}
-    </MapContainer>
-  ) : null;
+interface MapContainerProps {
+  year: string;
 }
 
-export default Map;
+const Map = ReactMapboxGl({
+  accessToken:
+    'pk.eyJ1IjoibnJnYXBwbGUiLCJhIjoiY2trN2E1YnVvMGJ4OTJwbWptM25waHVmNyJ9.UxvOXdAatpV-H1AXQQ23Kg',
+});
+
+const MapContainer = ({ year }: MapContainerProps) => {
+  const [isLoading, data] = useData(year);
+
+  return (
+    <div className="map-grid">
+      <Map
+        className="map"
+        style="mapbox://styles/nrgapple/ckk7nff4z0jzj17pitiuejlvt"
+        onStyleLoad={(map: MapboxGl.Map) => {
+          map.setZoom(20);
+          map.resize();
+        }}
+      >
+        {data && (
+          <>
+            <GeoJSONLayer
+              data={data.borders}
+              fillPaint={{
+                'fill-color': ['get', 'COLOR'],
+                'fill-opacity': 0.5,
+              }}
+            />
+            <GeoJSONLayer
+              data={data.labels}
+              symbolLayout={{
+                'text-field': '{NAME}',
+                'text-font': ['Lato Bold'],
+                'text-size': {
+                  base: 1,
+                  stops: [
+                    [12, 12],
+                    [16, 16],
+                  ],
+                },
+                'text-padding': 3,
+                'text-letter-spacing': 0.1,
+                'text-max-width': 7,
+                'text-transform': 'uppercase',
+              }}
+            />
+          </>
+        )}
+      </Map>
+    </div>
+  );
+};
+
+export default MapContainer;

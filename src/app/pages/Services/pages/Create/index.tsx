@@ -56,104 +56,79 @@ export default function CreateService({
   };
 
   return (
-    <div className="flex">
-      <div
-        className={
-          openSidebar
-            ? 'w-64 max-[640px]:w-20 relative transition-all'
-            : 'hidden transition-all'
-        }
-      >
-        <Sidebar open={openSidebar} mode={mode} changeMode={changeMode} />
-      </div>
-      <div className="flex-1">
-        <Header
-          mode={mode}
-          changeMode={changeMode}
-          open={openSidebar}
-          setOpenSidebar={setOpenSidebar}
-        />
-        <div
-          className={`w-full pb-[50px] ${
-            mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'
-          }`}
-        >
-          <Container>
-            <div className={`px-5 grid gap-5 relative top-[80px]`}>
+    <div
+      className={`w-full pb-[50px] ${
+        mode ? '' : 'bg-gray-900 dark:bg-gray-900 p-0'
+      }`}
+    >
+      <div className={`px-5 grid gap-5 relative top-[80px]`}>
+        <div>
+          <h3
+            className={`text-[32px] text-white font-[600] ${
+              mode === true ? 'dark:text-black' : 'text-white dark:text-white'
+            }`}
+          >
+            Xizmat qo'shish
+          </h3>
+        </div>
+        <div className="mt-7">
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div
+              className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl ${
+                mode ? 'bg-gray-100' : 'bg-gray-800 '
+              }`}
+            >
               <div>
-                <h3
-                  className={`text-[32px] text-white font-[600] ${
-                    mode === true
-                      ? 'dark:text-black'
-                      : 'text-white dark:text-white'
-                  }`}
-                >
-                  Xizmat qo'shish
-                </h3>
+                <Input
+                  type="file"
+                  className="h-full"
+                  name="testImage"
+                  onChange={setImage}
+                />
               </div>
-              <div className="mt-7">
-                <form onSubmit={handleSubmit} encType="multipart/form-data">
-                  <div
-                    className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl ${
-                      mode ? 'bg-gray-100' : 'bg-gray-800 '
-                    }`}
+              <div className="grid gap-5">
+                <div className="grid gap-5">
+                  <Input
+                    label="Ismi"
+                    placeholder=" "
+                    name="name"
+                    onChange={setName}
+                  />
+                  <Input
+                    label="Telefon raqami"
+                    placeholder=" "
+                    name="phone"
+                    onChange={setPhone}
+                  />
+                  <Input
+                    label="Kasbi"
+                    placeholder=" "
+                    name="job"
+                    onChange={setJob}
+                  />
+                </div>
+                <div>
+                  <Textarea
+                    label="Ma'lumot yozing"
+                    placeholder=" "
+                    name="information"
+                    className="h-[120px]"
+                    onChange={setInformation}
+                  />
+                </div>
+                <div className="flex justify-end gap-5">
+                  <Button
+                    type="outline"
+                    mode={mode}
+                    className="w-1/4 flex justify-center"
                   >
-                    <div>
-                      <Input
-                        type="file"
-                        className="h-full"
-                        name="testImage"
-                        onChange={setImage}
-                      />
-                    </div>
-                    <div className="grid gap-5">
-                      <div className="grid gap-5">
-                        <Input
-                          label="Ismi"
-                          placeholder=" "
-                          name="name"
-                          onChange={setName}
-                        />
-                        <Input
-                          label="Telefon raqami"
-                          placeholder=" "
-                          name="phone"
-                          onChange={setPhone}
-                        />
-                        <Input
-                          label="Kasbi"
-                          placeholder=" "
-                          name="job"
-                          onChange={setJob}
-                        />
-                      </div>
-                      <div>
-                        <Textarea
-                          label="Ma'lumot yozing"
-                          placeholder=" "
-                          name="information"
-                          className="h-[120px]"
-                          onChange={setInformation}
-                        />
-                      </div>
-                      <div className="flex justify-end gap-5">
-                        <Button
-                          type="outline"
-                          mode={mode}
-                          className="w-1/4 flex justify-center"
-                        >
-                          Orqaga
-                        </Button>
-                        <Button className="w-1/4 flex justify-center">
-                          Saqlash
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                    Orqaga
+                  </Button>
+                  <Button className="w-1/4 flex justify-center">Saqlash</Button>
+                </div>
               </div>
             </div>
-          </Container>
+          </form>
         </div>
       </div>
     </div>
