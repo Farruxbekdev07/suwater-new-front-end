@@ -21,16 +21,17 @@ import Header from './components/Header';
 import Loader from './components/Loader';
 import { useToken } from './pages/Cookie';
 import { store } from 'store';
+import { useSelector } from 'react-redux';
 
 export function App() {
   const { i18n } = useTranslation();
   const [mode, setMode] = React.useState(false);
   const [newMode, setNewMode] = React.useState('');
   const [openSidebar, setOpenSidebar] = React.useState(true);
-  const token = store.getState().auth.user.token;
+  const token = useSelector((state: any) => state.auth.user.token);
 
   React.useEffect(() => {
-    if (mode === true) {
+    if (mode) {
       setNewMode('bg-white text-gray-900');
     } else {
       setNewMode('bg-gray-900');
@@ -61,7 +62,6 @@ export function App() {
       </BrowserRouter>
     );
   }
-
   return (
     <BrowserRouter>
       <Helmet

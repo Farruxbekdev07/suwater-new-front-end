@@ -1,108 +1,14 @@
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import Button from 'UI/Button';
-import Container from 'UI/Container';
 import Input from 'UI/Input';
 import Select from 'UI/Select';
-import Header from 'app/components/Header';
-import Sidebar from 'app/components/Sidebar';
 import Table from 'app/components/Table';
-import { i18n } from 'locales/i18n';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GET__USER } from './pages/api';
-
-const dataSource = [
-  {
-    key: '1',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '2',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '3',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '4',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '5',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '1',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '2',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '3',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '4',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '5',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '1',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '2',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '3',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '4',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-  {
-    key: '5',
-    name: 'Abduqodir Kuralov',
-    address: "Jizzax viloyati / Sharof Rashidov tumani / Qo'rayantoq mahallasi",
-    action: "Ma'lumotlarni ko'rish",
-  },
-];
+import { districts, regions, villages } from 'data';
+import RightContext from 'app/components/RightContext';
+import { useTranslation } from 'react-i18next';
 
 const columns = [
   {
@@ -124,10 +30,14 @@ const columns = [
 
 export default function Users({ mode }) {
   const [page, setPage] = useState(1);
-  const [userData, setUserData] = useState({});
   const navigate = useNavigate();
-  console.log(mode);
+  const region = regions.filter(item => item.name_uz === 'Jizzax viloyati')[0];
+  const district = districts.filter(item => item.region_id === region.id);
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const village = villages.filter(item => item.district_id == selectedDistrict);
+  const [selectedVillage, setSelectedVillage] = useState(village);
   const [getUser, { data, refetch }] = useLazyQuery(GET__USER);
+  const { t } = useTranslation('translation');
 
   useEffect(() => {
     getUser({
@@ -136,10 +46,19 @@ export default function Users({ mode }) {
         page,
       },
     });
-  }, []);
+  }, [data]);
 
   const logger = () => {
-    console.log(data.getUsers.payload);
+    refetch();
+    console.log(data?.getUsers?.payload);
+    console.log(selectedDistrict);
+  };
+
+  const selectDistrict = value => {
+    const new_district = districts.filter(
+      item => item.name_uz === value.target.value,
+    )[0];
+    setSelectedDistrict(new_district.id);
   };
 
   return (
@@ -153,14 +72,14 @@ export default function Users({ mode }) {
               mode ? 'text-black' : 'text-white'
             }`}
           >
-            Foydalanuvchilar
+            {t('sidebar.foydalanuvchilar')}
           </h3>
           <Button
             className="rounded-2xl"
             mode={mode}
             onClick={() => navigate('/users/add-user')}
           >
-            Foydalanuvchi qo'shish
+            {t("users.foydalanuvchi-qo'shish")}
           </Button>
         </div>
         <div
@@ -169,24 +88,39 @@ export default function Users({ mode }) {
             gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           }}
         >
-          <Select option={'option'} mode={mode} />
-          <Select option={'option'} mode={mode} />
+          <Select mode={mode} onChange={selectDistrict}>
+            {district?.map((item, index) => (
+              <option key={index}>{item.name_uz}</option>
+            ))}
+          </Select>
+          <Select
+            mode={mode}
+            onChange={e => setSelectedVillage(e.target.value)}
+          >
+            {village?.map((item, index) => (
+              <option className="h-[40px] block px-[50px]" key={index}>
+                {item.name_uz}
+              </option>
+            ))}
+          </Select>
           <Input label="ID" placeholder=" " name="id" mode={mode} />
           <Button
             className={`rounded-2xl flex justify-center`}
             mode={mode}
             onClick={logger}
           >
-            Qidirish
+            {t('sidebar.foydalanuvchilar')}
           </Button>
         </div>
-        <Table
-          dataSource={data?.getUsers?.payload}
-          columns={columns}
-          pagination={true}
-          totalDocs={20}
-          mode={mode}
-        />
+        {data ? (
+          <Table
+            dataSource={data?.getUsers?.payload}
+            columns={columns}
+            pagination={true}
+            totalDocs={20}
+            mode={mode}
+          />
+        ) : null}
       </div>
     </div>
   );

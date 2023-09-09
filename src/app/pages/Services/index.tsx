@@ -4,10 +4,12 @@ import Header from 'app/components/Header';
 import Sidebar from 'app/components/Sidebar';
 import Table from 'app/components/Table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 function Services({ mode }) {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation('translation');
   const dataSource = [
     {
       key: '1',
@@ -133,10 +135,10 @@ function Services({ mode }) {
                 mode === true ? 'text-black' : 'text-white'
               }`}
             >
-              Xizmatlar
+              {t('sidebar.xizmatlar')}
             </h3>
             <Button onClick={() => navigate('/services/add-service')}>
-              Xizmat qo'shish
+              {t("services.xizmat-qo'shish")}
             </Button>
           </div>
           <Table

@@ -3,8 +3,10 @@ import image from 'media/images/Rectangle 8.png';
 import Button from 'UI/Button';
 import { XMarkIcon, MapIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import mapImg from 'media/images/map-pin.png';
+import { useTranslation } from 'react-i18next';
 
 function RightModal({ hidden, flex, setHidden, setFlex, mode }) {
+  const { t, i18n } = useTranslation('translation');
   const handleClick = () => {
     if (flex === 'flex') {
       setHidden('hidden');

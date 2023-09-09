@@ -6,7 +6,7 @@ import { GetUser } from '../Utils';
 import { toast } from 'react-toastify';
 import { useLazyQuery } from '@apollo/client';
 import { SIGN__IN } from './api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'store/reducer';
 
 function Sign__in() {
@@ -16,6 +16,7 @@ function Sign__in() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState<any[]>([]);
   const [newUser, setNewUser] = useState([]);
+  const token = useSelector((state: any) => state.auth.user.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,6 +29,11 @@ function Sign__in() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const access__token = data?.signIn?.token;
+    const userId = data?.signIn?.user?._id;
+    console.log(token);
+
+    dispatch(signIn({ token: access__token, id: userId }));
     if (phone && password) {
       login({
         variables: {
@@ -35,13 +41,10 @@ function Sign__in() {
           password,
         },
       });
-      const access__token = data?.signIn?.token;
-      console.log(access__token);
-      dispatch(signIn(access__token));
-      setTimeout(() => {
-        toast.success('Sign In Successfully');
+      if (token || userId) {
         navigate('/');
-      }, 2000);
+        toast.success('Sign In Successfully');
+      }
     } else {
       toast.error('Enter phone and password');
     }

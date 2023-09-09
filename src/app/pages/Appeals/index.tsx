@@ -2,13 +2,12 @@ import Button from 'UI/Button';
 import Table from 'app/components/Table';
 import React from 'react';
 import RightModal from './components';
-import Container from 'UI/Container';
-import Sidebar from 'app/components/Sidebar';
-import Header from 'app/components/Header';
+import { useTranslation } from 'react-i18next';
 
 function Appeals({ mode }) {
   const [flex, setFlex] = React.useState('block');
   const [hidden, setHidden] = React.useState('hidden');
+  const { t, i18n } = useTranslation('translation');
 
   const handleClick = () => {
     if (flex === 'block') {
@@ -29,7 +28,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -44,7 +43,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -59,7 +58,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -74,7 +73,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -89,7 +88,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -104,7 +103,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -119,7 +118,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -134,7 +133,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -149,7 +148,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -164,7 +163,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -179,7 +178,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -194,7 +193,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -209,7 +208,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -224,7 +223,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -239,7 +238,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          Ma'lumotlarni ko'rish
+          {t("appeals.murojatlarni-ko'rish")}
         </Button>
       ),
     },
@@ -275,7 +274,7 @@ function Appeals({ mode }) {
                     mode === true ? 'text-black' : 'text-white'
                   }`}
                 >
-                  Murojatlar
+                  {t('sidebar.murojatlar')}
                 </p>
               </div>
               <Table

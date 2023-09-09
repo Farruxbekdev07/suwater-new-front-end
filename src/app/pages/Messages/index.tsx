@@ -1,76 +1,21 @@
+import { useLazyQuery } from '@apollo/client';
 import Button from 'UI/Button';
-import Container from 'UI/Container';
 import Collapsible from 'app/components/Collapse';
-import Header from 'app/components/Header';
-import Sidebar from 'app/components/Sidebar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GET_MESSAGE } from './api';
+import { useTranslation } from 'react-i18next';
 
 function Messages({ mode }) {
   const navigate = useNavigate();
+  const [getMessage, { data }] = useLazyQuery(GET_MESSAGE);
+  const { t, i18n } = useTranslation('translation');
 
-  const collapseItem = [
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-    {
-      name: "Jizzax Suv ta'minoti",
-      action: <i className="fa-solid fa-trash-can"></i>,
-      text: 'Lorem ipsum dolor sit amet consectetur. Iaculis blandit metus vestibulum urna vitae egestas et. Amet adipiscing sit sit ultricies commodo in pulvinar nisl. Nibh pulvinar volutpat gravida venenatis. Porttitor aliquet lobortis ullamcorper aliquam. Cursus faucibus tincidunt feugiat sagittis nulla amet porttitor. Elit platea proin lobortis etiam ullamcorper rutrum quam nec. Tortor.',
-    },
-  ];
+  useEffect(() => {
+    getMessage({
+      variables: { size: 10, page: 1 },
+    });
+  }, []);
 
   return (
     <div className={`w-full ${mode ? '' : 'bg-gray-900 p-0'}`}>
@@ -82,14 +27,14 @@ function Messages({ mode }) {
                 mode === true ? 'text-black' : 'text-white'
               }`}
             >
-              Xabarlar
+              {t('sidebar.xabarlar')}
             </h3>
             <Button onClick={() => navigate('/messages/send-message')}>
-              Xabar yo'llash
+              {t("messages.xabar-yo'llash")}
             </Button>
           </div>
           <div className="rounded-xl overflow-hidden">
-            {collapseItem.map((item, key) => {
+            {data?.getAnnouncements?.payload?.map((item, key) => {
               return <Collapsible mode={mode} dataSource={item} key={key} />;
             })}
           </div>

@@ -3,11 +3,19 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './en/translation.json';
+import uz from './uz/translation.json';
+import ru from './ru/translation.json';
 import { convertLanguageJsonToObject } from './translations';
 
 export const translationsJson = {
   en: {
     translation: en,
+  },
+  uz: {
+    translation: uz,
+  },
+  ru: {
+    translation: ru,
   },
 };
 
@@ -24,6 +32,7 @@ export const i18n = i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     resources: translationsJson,
+    // fallbackLng: ['uz', 'en', 'ru', 'en-US', 'dev'],
     fallbackLng: 'en',
     debug:
       process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test',
@@ -32,25 +41,3 @@ export const i18n = i18next
       escapeValue: false, // not needed for react as it escapes by default
     },
   });
-// const resources = {
-//   en: {
-//     translation: translationEN
-//   },
-//   de: {
-//     translation: translationDE
-//   }
-// };
-
-// i18n
-//   .use(detector)
-//   .use(reactI18nextModule) // passes i18n down to react-i18next
-//   .init({
-//     resources,
-//     fallbackLng: "en", // use en if detected lng is not available
-
-//     keySeparator: false, // we do not use keys in form messages.welcome
-
-//     interpolation: {
-//       escapeValue: false // react already safes from xss
-//     }
-//   });

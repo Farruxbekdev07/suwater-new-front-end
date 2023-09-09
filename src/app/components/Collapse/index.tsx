@@ -1,7 +1,6 @@
 import Button from 'UI/Button';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactPaginate from 'react-paginate';
 
 interface ITableProps {
   dataSource: any;
@@ -26,17 +25,17 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
     >
       <div className="flex justify-between items-center px-5 py-2 pr-1">
         <p onClick={toggle} className="font-[500] font-sans text-[16px]">
-          {dataSource?.name}
+          {dataSource?.title}
         </p>
         <Button type="outline" className="border-0" mode={mode}>
-          {dataSource?.action}
+          <i className="fa-solid fa-trash-can"></i>
         </Button>
       </div>
       <div className="px-5">
         {open && (
           <div>
             <div className="toggle">
-              <h4 className="text-[14px]">{dataSource?.text}</h4>
+              <h4 className="text-[14px]">{dataSource?.description}</h4>
             </div>
             <div className="flex justify-end gap-2 py-5">
               <Button type="outline" mode={mode}>

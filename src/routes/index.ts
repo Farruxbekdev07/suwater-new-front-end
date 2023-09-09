@@ -46,37 +46,37 @@ export const SIDEBAR_ROUTES: ISidebarRoutes[] = [
     path: paths.MAIN,
     element: Main,
     icon: HomeIcon,
-    label: 'Asosiy Sahifa',
+    label: 'sidebar.asosiy-sahifa',
   },
   {
     path: paths.USERS,
     element: Users,
     icon: UserIcon,
-    label: 'Foydalanuvchilar',
+    label: 'sidebar.foydalanuvchilar',
   },
   {
     path: paths.APPEALS,
     element: Appeals,
     icon: PencilIcon,
-    label: 'Murojatlar',
+    label: 'sidebar.murojatlar',
   },
   {
     path: paths.SERVICES,
     element: Services,
     icon: KeyIcon,
-    label: 'Xizmatlar',
+    label: 'sidebar.xizmatlar',
   },
   {
     path: paths.MESSAGES,
     element: Messages,
     icon: PencilSquareIcon,
-    label: 'Xabarlar',
+    label: 'sidebar.xabarlar',
   },
   {
     path: paths.SETTINGS,
     element: Settings,
     icon: AdjustmentsHorizontalIcon,
-    label: 'Sozlamalar',
+    label: 'sidebar.sozlamalar',
   },
 ];
 

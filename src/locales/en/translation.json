@@ -1,3 +1,41 @@
 {
-  "title": "welcome"
+  "sidebar": {
+    "asosiy-sahifa": "Main Page",
+    "foydalanuvchilar": "Users",
+    "murojatlar": "Appeals",
+    "xizmatlar": "Services",
+    "xabarlar": "Messages",
+    "sozlamalar": "Settings"
+  },
+  "users": {
+    "foydalanuvchi-qo'shish": "Add user",
+    "qidirish": "Search",
+    "ismi": "Name",
+    "familiyasi": "Surname",
+    "viloyati": "Region",
+    "tuman": "District",
+    "mahalla": "Neighborhood",
+    "ko'cha": "Street",
+    "telefon": "Phone",
+    "hisoblagich-raqami": "Counter number",
+    "parol": "Password",
+    "orqaga": "Back",
+    "saqlash": "Save"
+  },
+  "appeals": {
+    "murojatlarni-ko'rish": "View applications"
+  },
+  "services": {
+    "xizmat-qo'shish": "Add service",
+    "kasb": "Job"
+  },
+  "messages": {
+    "xabar-yo'llash": "Send a message",
+    "xabar-yozish": "Write a message",
+    "mavzu": "Title",
+    "ma'lumot-yozing": "Write information"
+  },
+  "settings": {
+    "manzil": "Address"
+  }
 }

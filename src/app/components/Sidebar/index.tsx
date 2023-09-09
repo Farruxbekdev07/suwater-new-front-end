@@ -6,21 +6,11 @@ import { NavLink } from 'react-router-dom';
 import Button from 'UI/Button';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 import suwater from 'media/images/suwater-svg.png';
-import { useDispatch } from 'react-redux';
-import { logOut } from 'store/reducer';
 
 const Sidebar = ({ mode, changeMode, open }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation('translation');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   if (open === false) return null;
-
-  const logout = () => {
-    dispatch(logOut());
-    setTimeout(() => {
-      navigate('/sign-in');
-    }, 1000);
-  };
 
   return (
     <>
@@ -35,7 +25,10 @@ const Sidebar = ({ mode, changeMode, open }) => {
           } ${open ? '' : 'w-32]'}`}
         >
           <ul className="space-y-2">
-            <div className="h-[80px] bg-transparent flex items-center justify-between px-4">
+            <div
+              className="h-[80px] bg-transparent flex items-center justify-between px-4"
+              onClick={() => navigate('/')}
+            >
               <p
                 className={`text-[26px] font-bold font-sans italic ${
                   mode ? 'text-blue-700' : 'text-white'
@@ -67,9 +60,6 @@ const Sidebar = ({ mode, changeMode, open }) => {
             })}
           </ul>
           <div>
-            <Button onClick={logout} mode={mode}>
-              Log Out
-            </Button>
             <Button
               type="outline"
               leftIcon={mode === true ? MoonIcon : SunIcon}

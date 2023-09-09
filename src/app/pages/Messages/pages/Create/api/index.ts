@@ -1,24 +1,17 @@
 import { gql } from '@apollo/client';
 
-export const CREATE__APPEAL = gql`
-  mutation createAppeal(
-    $image: String!
-    $user: ID!
-    $status: String!
-    $location: String!
+export const CREATE__MESSAGE = gql`
+  mutation createAnnouncement(
+    $image: String
+    $title: String!
     $description: String!
   ) {
-    createAppeal(
-      appeal: {
-        user: $user
-        status: $status
-        description: $description
-        image: $image
-        location: $location
-      }
+    createAnnouncement(
+      announcement: { title: $title, description: $description, image: $image }
     ) {
       payload {
-        user
+        title
+        description
       }
     }
   }

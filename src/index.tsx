@@ -25,17 +25,20 @@ import reportWebVitals from 'reportWebVitals';
 
 import './index.css';
 
-// Initialize languages
 import './locales/i18n';
 import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-// import client from 'graphql';
+import { ApolloProvider } from '@apollo/client';
 import { persistor, store } from 'store';
 import { PersistGate } from 'redux-persist/integration/react';
 import client from './graphql/index';
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
+import common_uz from './locales/uz/translation.json';
+import common_en from './locales/en/translation.json';
+import common_ru from './locales/ru/translation.json';
 import { __DEV__ } from '@apollo/client/utilities/globals';
+import { I18nextProvider } from 'react-i18next';
+import i18next from 'i18next';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -48,18 +51,35 @@ if (__DEV__) {
   loadErrorMessages();
 }
 
+i18next.init({
+  interpolation: { escapeValue: false }, // React already does escaping
+  lng: 'en', // language to use
+  resources: {
+    en: {
+      common: common_en, // 'common' is our custom namespace
+    },
+    uz: {
+      common: common_uz,
+    },
+    ru: {
+      common: common_ru,
+    },
+  },
+});
 root.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
       <PersistGate loading={null} persistor={persistor}>
-        <HelmetProvider>
-          <React.StrictMode>
-            <QueryClientProvider client={queryClient}>
-              <App />
-            </QueryClientProvider>
-          </React.StrictMode>
-          <ToastContainer autoClose={1500} />
-        </HelmetProvider>
+        <I18nextProvider i18n={i18next}>
+          <HelmetProvider>
+            <React.StrictMode>
+              <QueryClientProvider client={queryClient}>
+                <App />
+              </QueryClientProvider>
+            </React.StrictMode>
+            <ToastContainer autoClose={1500} />
+          </HelmetProvider>
+        </I18nextProvider>
       </PersistGate>
     </ApolloProvider>
   </Provider>,

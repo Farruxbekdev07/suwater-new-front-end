@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Textarea from 'UI/Textarea';
 import { toast } from 'react-toastify';
 import { usePost } from 'app/pages/Hooks';
+import { useTranslation } from 'react-i18next';
 
 export default function CreateService({
   mode,
@@ -25,6 +26,7 @@ export default function CreateService({
   const [job, setJob] = useState('');
   const { mutate: serviceData } = usePost();
   const userId = JSON.parse(localStorage.getItem('data') || '{}');
+  const { t, i18n } = useTranslation('translation');
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -68,7 +70,7 @@ export default function CreateService({
               mode === true ? 'dark:text-black' : 'text-white dark:text-white'
             }`}
           >
-            Xizmat qo'shish
+            {t("services.xizmat-qo'shish")}
           </h3>
         </div>
         <div className="mt-7">
@@ -89,19 +91,19 @@ export default function CreateService({
               <div className="grid gap-5">
                 <div className="grid gap-5">
                   <Input
-                    label="Ismi"
+                    label="users.ismi"
                     placeholder=" "
                     name="name"
                     onChange={setName}
                   />
                   <Input
-                    label="Telefon raqami"
+                    label="users.telefon"
                     placeholder=" "
                     name="phone"
                     onChange={setPhone}
                   />
                   <Input
-                    label="Kasbi"
+                    label="services.kasb"
                     placeholder=" "
                     name="job"
                     onChange={setJob}
@@ -109,7 +111,7 @@ export default function CreateService({
                 </div>
                 <div>
                   <Textarea
-                    label="Ma'lumot yozing"
+                    label="messages.ma'lumot-yozing"
                     placeholder=" "
                     name="information"
                     className="h-[120px]"
@@ -122,9 +124,11 @@ export default function CreateService({
                     mode={mode}
                     className="w-1/4 flex justify-center"
                   >
-                    Orqaga
+                    {t('users.orqaga')}
                   </Button>
-                  <Button className="w-1/4 flex justify-center">Saqlash</Button>
+                  <Button className="w-1/4 flex justify-center">
+                    {t('users.saqlash')}
+                  </Button>
                 </div>
               </div>
             </div>

@@ -1,0 +1,41 @@
+{
+  "sidebar": {
+    "asosiy-sahifa": "Главная страница",
+    "foydalanuvchilar": "Пользователи",
+    "murojatlar": "Апелляции",
+    "xizmatlar": "Услуги",
+    "xabarlar": "Сообщения",
+    "sozlamalar": "Настройки"
+  },
+  "users": {
+    "foydalanuvchi-qo'shish": "Добавить пользователя",
+    "qidirish": "Поиск",
+    "ismi": "Имя",
+    "familiyasi": "Фамилия",
+    "viloyati": "Провинция",
+    "tuman": "Туман",
+    "mahalla": "Район",
+    "ko'cha": "Улица",
+    "telefon": "Телефон",
+    "hisoblagich-raqami": "Номер счетчика",
+    "parol": "Пароль",
+    "orqaga": "Назад",
+    "saqlash": "Сохранять"
+  },
+  "appeals": {
+    "murojatlarni-ko'rish": "Просмотр приложений"
+  },
+  "services": {
+    "xizmat-qo'shish": "Добавить услугу",
+    "kasb": "Профессия"
+  },
+  "messages": {
+    "xabar-yo'llash": "Отправить сообщение",
+    "xabar-yozish": "Напиши сообщение",
+    "mavzu": "Тема",
+    "ma'lumot-yozing": "Напишите информацию"
+  },
+  "settings": {
+    "manzil": "Адрес"
+  }
+}

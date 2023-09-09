@@ -2,19 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import Button from 'UI/Button';
 import usericon from 'media/images/user-icon2.png';
-import { GetUserData } from 'app/pages/Storage';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { RootStateOrAny, useSelector } from 'react-redux';
+import { useLazyQuery } from '@apollo/client';
+import { GET__USER_ID } from './api';
+import Dropdown from '../Dropdown';
 
 function Header({ mode, open, setOpenSidebar }) {
-  const navigate = useNavigate();
-  const [user, setUser] = useState<any[]>([]);
-  const [userData, setUserData] = useState<any[]>([]);
-  const userId = JSON.parse(localStorage.getItem('data') || '{}');
-  const { t, i18n } = useTranslation();
+  const [getUser, { data }] = useLazyQuery(GET__USER_ID);
+  const [userData, setUserData] = useState<any>({});
+  const [show, setShow] = useState(false);
+  const { t, i18n } = useTranslation('translation');
+  const userId = useSelector(
+    (state: RootStateOrAny) => state?.auth?.userId?.id,
+  );
 
   const changeLanguage = language => {
     i18n.changeLanguage(language);
+    console.log(language);
   };
 
   const handleToggle = () => {
@@ -26,12 +31,12 @@ function Header({ mode, open, setOpenSidebar }) {
   };
 
   useEffect(() => {
-    async function get() {
-      const data = await GetUserData(navigate);
-      console.log(data);
-      setUserData([data]);
-    }
-    get();
+    getUser({
+      variables: {
+        ID: userId,
+      },
+    });
+    setUserData(data?.getUser?.payload);
   }, []);
 
   return (
@@ -51,7 +56,7 @@ function Header({ mode, open, setOpenSidebar }) {
           onClick={handleToggle}
         />
       </div>
-      <div className="flex gap-16 items-center">
+      <div className="flex gap-10 items-center">
         <div className={`flex gap-2 ${mode ? 'text-black' : 'text-white'}`}>
           <p
             className="font-sans cursor-pointer"
@@ -77,15 +82,17 @@ function Header({ mode, open, setOpenSidebar }) {
             mode ? 'text-black' : 'text-white'
           }`}
         >
-          {userData?.map(item => {
-            return (
-              <p className="font-sans">
-                {item?.name} {item?.last_name}
-              </p>
-            );
-          })}
-          <div>
-            <img src={usericon} alt="" className="h-[50px] cursor-pointer" />
+          <p className="font-sans">
+            {userData?.firstName} {userData?.lastName}
+          </p>
+          <div className="relative ">
+            <img
+              src={usericon}
+              alt=""
+              className="h-[50px] cursor-pointer"
+              onClick={() => setShow(!show)}
+            />
+            <Dropdown show={show} />
           </div>
         </div>
       </div>

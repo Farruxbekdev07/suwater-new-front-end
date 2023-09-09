@@ -1,0 +1,41 @@
+{
+  "sidebar": {
+    "asosiy-sahifa": "Asosiy Sahifa",
+    "foydalanuvchilar": "Foydalanuvchilar",
+    "murojatlar": "Murojatlar",
+    "xizmatlar": "Xizmatlar",
+    "xabarlar": "Xabarlar",
+    "sozlamalar": "Sozlamalar"
+  },
+  "users": {
+    "foydalanuvchi-qo'shish": "Foydalanuvchi qo'shish",
+    "qidirish": "Qidirish",
+    "ismi": "Ismi",
+    "familiyasi": "Familiyasi",
+    "viloyati": "Viloyati",
+    "tuman": "Tuman",
+    "mahalla": "Mahalla",
+    "ko'cha": "Ko'chasi",
+    "telefon": "Telefon",
+    "hisoblagich-raqami": "Hisoblagich raqami",
+    "parol": "Parol",
+    "orqaga": "Orqaga",
+    "saqlash": "Saqlash"
+  },
+  "appeals": {
+    "murojatlarni-ko'rish": "Murojatlarni ko'rish"
+  },
+  "services": {
+    "xizmat-qo'shish": "Xizmat qo'shish",
+    "kasb": "Kasbi"
+  },
+  "messages": {
+    "xabar-yo'llash": "Xabar yo'llash",
+    "xabar-yozish": "Xabar yozish",
+    "mavzu": "Mavzu",
+    "ma'lumot-yozing": "Ma'lumot yozing"
+  },
+  "settings": {
+    "manzil": "Manzil"
+  }
+}

@@ -1,55 +1,47 @@
 import React, { useState } from 'react';
 import Button from 'UI/Button';
 import Input from 'UI/Input';
-import Select from 'UI/Select';
+import SelectComponent from 'UI/Select';
 import { useNavigate } from 'react-router-dom';
 import Textarea from 'UI/Textarea';
 import { usePost } from 'app/pages/Hooks';
 import { toast } from 'react-toastify';
-import { CREATE__APPEAL } from './api';
+import { CREATE__MESSAGE } from './api';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 export default function SendMessage({ mode }) {
   const navigate = useNavigate();
   console.log(mode);
-  const [createEmployee, { data, error }] = useMutation(CREATE__APPEAL);
-  const [name, setName] = useState('');
-  const [user, setUser] = useState('64eda45bb9c474bf542eeba6');
-  const [status, setStatus] = useState('pending');
-  const [location, setLocation] = useState('');
+  const [createMessage, { data, error }] = useMutation(CREATE__MESSAGE);
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState([]);
+  const { t, i18n } = useTranslation('translation');
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (
-      name.length !== 0 &&
-      description.length !== 0 &&
-      image.length !== 0 &&
-      location.length !== 0
-    ) {
-      createEmployee({
+    if (title.length !== 0 && description.length !== 0) {
+      // && image.length !== 0
+      createMessage({
         variables: {
-          // status,
           description,
           image: image[0],
-          location,
-          user,
+          title,
         },
       });
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success('Message created successfully');
+      }
+      setTitle('');
+      setDescription('');
+      setImage([]);
     } else {
       toast.error('Enter full data');
     }
   };
-
-  const options = [
-    {
-      option: 'pending',
-    },
-    {
-      option: 'approved',
-    },
-  ];
 
   return (
     <div className={`w-full pb-[50px] ${mode ? '' : 'bg-gray-900 p-0'}`}>
@@ -60,13 +52,13 @@ export default function SendMessage({ mode }) {
               mode === true ? 'text-black' : 'text-white'
             }`}
           >
-            Xabar yozish
+            {t('messages.xabar-yozish')}
           </h3>
         </div>
         <div className="mt-7">
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div
-              className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl ${
+              className={`grid grid-cols-2 gap-5 p-5 max-[900px]:grid-cols-1 rounded-xl border ${
                 mode ? 'bg-gray-100' : 'bg-gray-800 '
               }`}
             >
@@ -76,48 +68,41 @@ export default function SendMessage({ mode }) {
                   className="h-full"
                   name="testImage"
                   onChange={setImage}
+                  value={image[0]}
                 />
               </div>
               <div className="grid gap-5">
                 <div className="grid gap-5">
                   <Input
-                    label="Ismi"
+                    label="messages.mavzu"
                     placeholder=" "
-                    name="name"
-                    onChange={setName}
-                  />
-                  {/* <Select
-                    option={status}
-                    name="status"
-                    onChange={setStatus}
-                  /> */}
-                </div>
-                <div className="grid gap-5">
-                  <Input
-                    label="Manzil"
-                    placeholder=" "
-                    name="location"
-                    onChange={setLocation}
+                    name="title"
+                    onChange={setTitle}
+                    value={title}
                   />
                 </div>
                 <div>
                   <Textarea
-                    label="Ma'lumot yozing"
+                    label="messages.ma'lumot-yozing"
                     placeholder=" "
                     name="description"
                     className="h-[120px]"
                     onChange={setDescription}
+                    value={description}
                   />
                 </div>
                 <div className="flex justify-end gap-5">
                   <Button
                     type="outline"
                     mode={mode}
-                    className="w-1/4 flex justify-center"
+                    className="w-1/2 flex justify-center"
+                    onClick={() => navigate('/messages')}
                   >
-                    Orqaga
+                    {t('users.orqaga')}
                   </Button>
-                  <Button className="w-1/4 flex justify-center">Saqlash</Button>
+                  <Button className="w-1/2 flex justify-center">
+                    {t('users.saqlash')}
+                  </Button>
                 </div>
               </div>
             </div>

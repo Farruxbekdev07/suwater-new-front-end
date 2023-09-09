@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CREATE__USER } from './api';
+import { useTranslation } from 'react-i18next';
 
 export default function CreateUser({ mode }) {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function CreateUser({ mode }) {
   const [street, setStreet] = useState('');
   const [district, setDistrict] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
+  const { t } = useTranslation('translation');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -44,8 +46,12 @@ export default function CreateUser({ mode }) {
           address,
         },
       });
-      navigate('/users');
-      toast.success('User created successfully!');
+      if (error) {
+        toast.error(error.message);
+      } else {
+        navigate('/users');
+        toast.success('User created successfully!');
+      }
     } else {
       toast.error('Enter full data');
     }
@@ -64,7 +70,7 @@ export default function CreateUser({ mode }) {
               mode === true ? 'dark:text-black' : 'text-white dark:text-white'
             }`}
           >
-            Foydalanuvchi qo'shish
+            {t("users.foydalanuvchi-qo'shish")}
           </h3>
         </div>
         <div className="mt-7">
@@ -75,56 +81,56 @@ export default function CreateUser({ mode }) {
               }`}
             >
               <Input
-                label="Ismi"
+                label="users.ismi"
                 placeholder=" "
                 name="firstname"
                 onChange={setFirstName}
               />
               <Input
-                label="Familiyasi"
+                label="users.familiyasi"
                 placeholder=" "
                 name="lastname"
                 onChange={setLastName}
               />
               <Input
-                label="Viloyati"
+                label="users.viloyati"
                 placeholder=" "
                 name="viloyat"
                 onChange={setRegion}
               />
               <Input
-                label="Tuman"
+                label="users.tuman"
                 placeholder=" "
                 name="tuman"
                 onChange={setDistrict}
               />
               <Input
-                label="Mahalla"
+                label="users.mahalla"
                 placeholder=" "
                 name="mahalla"
                 onChange={setNeighborhood}
               />
               <Input
-                label="Ko'chasi"
+                label="users.ko'cha"
                 placeholder=" "
                 name="kucha"
                 onChange={setStreet}
               />
               <Input
-                label="Telefon"
+                label="users.telefon"
                 placeholder=" "
                 name="phone"
                 onChange={setPhone}
               />
               <Input
-                label="Counter Number"
+                label="users.hisoblagich-raqami"
                 placeholder=" "
                 name="counterNumber"
                 onChange={setCounter}
                 type="number"
               />
               <Input
-                label="Parol"
+                label="users.parol"
                 placeholder=" "
                 name="parol"
                 type="password"
@@ -138,9 +144,11 @@ export default function CreateUser({ mode }) {
                 mode={mode}
                 onClick={() => navigate('/users')}
               >
-                Orqaga
+                {t('users.orqaga')}
               </Button>
-              <Button className="w-[200px] flex justify-center">Saqlash</Button>
+              <Button className="w-[200px] flex justify-center">
+                {t('users.saqlash')}
+              </Button>
             </div>
           </form>
         </div>

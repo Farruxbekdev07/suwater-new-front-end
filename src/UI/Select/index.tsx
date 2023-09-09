@@ -16,6 +16,7 @@ interface IInputProps {
   option?: any;
   defaultValue?: any;
   mode?: any;
+  children: any;
 }
 
 const Select = ({
@@ -31,6 +32,7 @@ const Select = ({
   option,
   defaultValue,
   mode,
+  children,
 }: IInputProps) => {
   const { t } = useTranslation();
 
@@ -56,11 +58,11 @@ const Select = ({
           mode === true ? 'text-gray-500' : 'text-gray-400'
         } text-sm rounded-xl h-[50px] focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${className}`}
         placeholder={placeholder}
-        onChange={e => (onChange ? onChange(e?.target?.value) : null)}
+        onChange={onChange ? onChange : null}
         onBlur={onBlur}
         defaultValue={defaultValue}
       >
-        <option value={option}>{option}</option>
+        {children}
       </select>
     </div>
   );
