@@ -1,6 +1,8 @@
 import Button from 'UI/Button';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { DELETE_ANNOUNCEMENT } from 'app/pages/Messages/api';
+import { useMutation } from '@apollo/client';
 
 interface ITableProps {
   dataSource: any;
@@ -15,6 +17,17 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
     setOPen(!open);
   };
 
+  const [deleteAnnouncement, { data: deleteAnnouncementData }] =
+    useMutation(DELETE_ANNOUNCEMENT);
+
+  const handleDelete = id => {
+    deleteAnnouncement({
+      variables: {
+        Id: id,
+      },
+    });
+  };
+
   return (
     <div
       className={`relative overflow-x-auto ${
@@ -27,7 +40,12 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
         <p onClick={toggle} className="font-[500] font-sans text-[16px]">
           {dataSource?.title}
         </p>
-        <Button type="outline" className="border-0" mode={mode}>
+        <Button
+          type="outline"
+          className="border-0"
+          mode={mode}
+          onClick={() => handleDelete(dataSource?._id)}
+        >
           <i className="fa-solid fa-trash-can"></i>
         </Button>
       </div>
@@ -38,7 +56,11 @@ export default function Collapsible({ dataSource, mode }: ITableProps) {
               <h4 className="text-[14px]">{dataSource?.description}</h4>
             </div>
             <div className="flex justify-end gap-2 py-5">
-              <Button type="outline" mode={mode}>
+              <Button
+                type="outline"
+                mode={mode}
+                onClick={() => handleDelete(dataSource?._id)}
+              >
                 O'chirish
               </Button>
               <Button>Orqaga</Button>

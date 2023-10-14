@@ -9,7 +9,7 @@ function Dropdown({ show }) {
 
   const logout = () => {
     dispatch(logOut());
-    navigate('/sign-in');
+    navigate('/');
   };
 
   return (

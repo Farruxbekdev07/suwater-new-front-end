@@ -70,7 +70,7 @@ export default function CreateUser({ mode }) {
               mode === true ? 'dark:text-black' : 'text-white dark:text-white'
             }`}
           >
-            {t("users.foydalanuvchi-qo'shish")}
+            {t("Foydalanuvchi qo'shish")}
           </h3>
         </div>
         <div className="mt-7">
@@ -81,56 +81,56 @@ export default function CreateUser({ mode }) {
               }`}
             >
               <Input
-                label="users.ismi"
+                label="Ismi"
                 placeholder=" "
                 name="firstname"
                 onChange={setFirstName}
               />
               <Input
-                label="users.familiyasi"
+                label="Familiyasi"
                 placeholder=" "
                 name="lastname"
                 onChange={setLastName}
               />
               <Input
-                label="users.viloyati"
+                label="Viloyati"
                 placeholder=" "
                 name="viloyat"
                 onChange={setRegion}
               />
               <Input
-                label="users.tuman"
+                label="Tuman"
                 placeholder=" "
                 name="tuman"
                 onChange={setDistrict}
               />
               <Input
-                label="users.mahalla"
+                label="Mahalla"
                 placeholder=" "
                 name="mahalla"
                 onChange={setNeighborhood}
               />
               <Input
-                label="users.ko'cha"
+                label="Ko'cha"
                 placeholder=" "
                 name="kucha"
                 onChange={setStreet}
               />
               <Input
-                label="users.telefon"
+                label="Telefon"
                 placeholder=" "
                 name="phone"
                 onChange={setPhone}
               />
               <Input
-                label="users.hisoblagich-raqami"
+                label="Hisoblagich-raqami"
                 placeholder=" "
                 name="counterNumber"
                 onChange={setCounter}
                 type="number"
               />
               <Input
-                label="users.parol"
+                label="Parol"
                 placeholder=" "
                 name="parol"
                 type="password"
@@ -144,10 +144,10 @@ export default function CreateUser({ mode }) {
                 mode={mode}
                 onClick={() => navigate('/users')}
               >
-                {t('users.orqaga')}
+                {t('Orqaga')}
               </Button>
               <Button className="w-[200px] flex justify-center">
-                {t('users.saqlash')}
+                {t('Saqlash')}
               </Button>
             </div>
           </form>

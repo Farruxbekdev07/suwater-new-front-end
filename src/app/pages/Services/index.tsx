@@ -135,10 +135,10 @@ function Services({ mode }) {
                 mode === true ? 'text-black' : 'text-white'
               }`}
             >
-              {t('sidebar.xizmatlar')}
+              {t('Xizmatlar')}
             </h3>
             <Button onClick={() => navigate('/services/add-service')}>
-              {t("services.xizmat-qo'shish")}
+              {t("Xizmat qo'shish")}
             </Button>
           </div>
           <Table

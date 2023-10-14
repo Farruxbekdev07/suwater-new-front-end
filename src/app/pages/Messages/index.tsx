@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import Button from 'UI/Button';
 import Collapsible from 'app/components/Collapse';
 import React, { useEffect } from 'react';
@@ -27,10 +27,10 @@ function Messages({ mode }) {
                 mode === true ? 'text-black' : 'text-white'
               }`}
             >
-              {t('sidebar.xabarlar')}
+              {t('Xabarlar')}
             </h3>
             <Button onClick={() => navigate('/messages/send-message')}>
-              {t("messages.xabar-yo'llash")}
+              {t("Xabar yo'llash")}
             </Button>
           </div>
           <div className="rounded-xl overflow-hidden">

@@ -6,34 +6,33 @@ import { GetUser } from '../Utils';
 import { toast } from 'react-toastify';
 import { useLazyQuery } from '@apollo/client';
 import { SIGN__IN } from './api';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signIn } from 'store/reducer';
+import paths from 'constants/routePaths';
 
 function Sign__in() {
-  const [login, { data }] = useLazyQuery(SIGN__IN);
+  const [login, { data, loading, error }] = useLazyQuery(SIGN__IN);
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState<any[]>([]);
-  const [newUser, setNewUser] = useState([]);
-  const token = useSelector((state: any) => state.auth.user.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function get() {
-      const users = await GetUser();
-      setUser(users);
+    if (!loading && data) {
+      dispatch(
+        signIn({ token: data?.signIn?.token, id: data?.signIn?.user?._id }),
+      );
+      navigate(paths.MAIN);
+      toast.success('Sign In Successfully');
     }
-    get();
-  }, [newUser]);
+  }, [data, loading, dispatch, navigate]);
+
+  useEffect(() => {
+    if (error) toast.error(error.message);
+  }, [error]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const access__token = data?.signIn?.token;
-    const userId = data?.signIn?.user?._id;
-    console.log(token);
-
-    dispatch(signIn({ token: access__token, id: userId }));
     if (phone && password) {
       login({
         variables: {
@@ -41,10 +40,6 @@ function Sign__in() {
           password,
         },
       });
-      if (token || userId) {
-        navigate('/');
-        toast.success('Sign In Successfully');
-      }
     } else {
       toast.error('Enter phone and password');
     }

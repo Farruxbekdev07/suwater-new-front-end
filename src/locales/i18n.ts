@@ -33,9 +33,15 @@ export const i18n = i18next
   .init({
     resources: translationsJson,
     // fallbackLng: ['uz', 'en', 'ru', 'en-US', 'dev'],
-    fallbackLng: 'en',
-    debug:
-      process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test',
+    // fallbackLng: {
+    //   default: ['uz'],
+    // },
+    fallbackLng: {
+      'uz-en': ['uz', 'en'],
+      es: ['en'],
+      default: ['en'],
+    },
+    debug: true,
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default

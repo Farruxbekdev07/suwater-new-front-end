@@ -50,7 +50,7 @@ function Settings({ mode }) {
                 mode === true ? 'text-black' : 'text-white'
               }`}
             >
-              {t('sidebar.sozlamalar')}
+              {t('Sozlamalar')}
             </h3>
           </div>
           <div className="flex gap-5 max-[768px]:grid">
@@ -59,35 +59,35 @@ function Settings({ mode }) {
             </div>
             <div className="grid gap-5 w-1/2 max-[768px]:w-full">
               <Input
-                label="users.ismi"
+                label="Ismi"
                 name="firstname"
                 placeholder=" "
                 mode={mode}
                 onChange={setFirstName}
               />
               <Input
-                label="users.familiyasi"
+                label="Familiyasi"
                 name="lastname"
                 placeholder=" "
                 mode={mode}
                 onChange={setLastName}
               />
               <Input
-                label="settings.manzil"
+                label="Manzil"
                 name="address"
                 placeholder=" "
                 mode={mode}
                 onChange={setAddress}
               />
               <Input
-                label="users.hisoblagich-raqami"
+                label="Hisoblagich raqami"
                 name="counterNumber"
                 placeholder=" "
                 mode={mode}
                 onChange={setCounter}
               />
               <Input
-                label="users.telefon"
+                label="Telefon"
                 name="phone"
                 placeholder=" "
                 mode={mode}
@@ -99,14 +99,14 @@ function Settings({ mode }) {
                   type="outline"
                   mode={mode}
                 >
-                  {t('users.orqaga')}
+                  {t('Orqaga')}
                 </Button>
                 <Button
                   mode={mode}
                   className="w-1/2 flex justify-center max-[450px]:w-full"
                   onClick={handleUpdate}
                 >
-                  {t('users.saqlash')}
+                  {t('Saqlash')}
                 </Button>
               </div>
             </div>

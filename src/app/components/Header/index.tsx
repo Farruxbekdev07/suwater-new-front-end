@@ -3,23 +3,25 @@ import { QueueListIcon } from '@heroicons/react/24/outline';
 import Button from 'UI/Button';
 import usericon from 'media/images/user-icon2.png';
 import { useTranslation } from 'react-i18next';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useLazyQuery } from '@apollo/client';
 import { GET__USER_ID } from './api';
 import Dropdown from '../Dropdown';
+import { language } from 'store/reducer';
 
 function Header({ mode, open, setOpenSidebar }) {
   const [getUser, { data }] = useLazyQuery(GET__USER_ID);
   const [userData, setUserData] = useState<any>({});
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation('translation');
   const userId = useSelector(
     (state: RootStateOrAny) => state?.auth?.userId?.id,
   );
 
-  const changeLanguage = language => {
-    i18n.changeLanguage(language);
-    console.log(language);
+  const changeLanguage = lang => {
+    i18n.changeLanguage(lang);
+    dispatch(language(lang));
   };
 
   const handleToggle = () => {

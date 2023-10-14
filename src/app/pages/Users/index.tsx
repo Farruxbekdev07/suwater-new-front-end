@@ -29,13 +29,11 @@ const columns = [
 ];
 
 export default function Users({ mode }) {
-  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const region = regions.filter(item => item.name_uz === 'Jizzax viloyati')[0];
   const district = districts.filter(item => item.region_id === region.id);
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const village = villages.filter(item => item.district_id == selectedDistrict);
-  const [selectedVillage, setSelectedVillage] = useState(village);
   const [getUser, { data, refetch }] = useLazyQuery(GET__USER);
   const { t } = useTranslation('translation');
 
@@ -43,7 +41,7 @@ export default function Users({ mode }) {
     getUser({
       variables: {
         size: 10,
-        page,
+        page: 1,
       },
     });
   }, [data]);
@@ -72,14 +70,14 @@ export default function Users({ mode }) {
               mode ? 'text-black' : 'text-white'
             }`}
           >
-            {t('sidebar.foydalanuvchilar')}
+            {t('Foydalanuvchilar')}
           </h3>
           <Button
             className="rounded-2xl"
             mode={mode}
             onClick={() => navigate('/users/add-user')}
           >
-            {t("users.foydalanuvchi-qo'shish")}
+            {t("Foydalanuvchi qo'shish")}
           </Button>
         </div>
         <div
@@ -93,10 +91,7 @@ export default function Users({ mode }) {
               <option key={index}>{item.name_uz}</option>
             ))}
           </Select>
-          <Select
-            mode={mode}
-            onChange={e => setSelectedVillage(e.target.value)}
-          >
+          <Select mode={mode}>
             {village?.map((item, index) => (
               <option className="h-[40px] block px-[50px]" key={index}>
                 {item.name_uz}
@@ -109,7 +104,7 @@ export default function Users({ mode }) {
             mode={mode}
             onClick={logger}
           >
-            {t('sidebar.foydalanuvchilar')}
+            {t('Foydalanuvchilar')}
           </Button>
         </div>
         {data ? (

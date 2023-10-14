@@ -18,17 +18,16 @@ import { AUTH_ROUTES, MAIN_ROUTES, SIDEBAR_ROUTES } from 'routes';
 import Sidebar from './components/Sidebar';
 import Container from 'UI/Container';
 import Header from './components/Header';
-import Loader from './components/Loader';
-import { useToken } from './pages/Cookie';
 import { store } from 'store';
 import { useSelector } from 'react-redux';
 
 export function App() {
-  const { i18n } = useTranslation();
   const [mode, setMode] = React.useState(false);
   const [newMode, setNewMode] = React.useState('');
   const [openSidebar, setOpenSidebar] = React.useState(true);
-  const token = useSelector((state: any) => state.auth.user.token);
+  const token = useSelector((state: any) => state.auth?.user?.token);
+  const { language } = useSelector((state: any) => state.auth?.language);
+  const { i18n } = useTranslation('translation');
 
   React.useEffect(() => {
     if (mode) {
@@ -37,6 +36,22 @@ export function App() {
       setNewMode('bg-gray-900');
     }
   }, [mode]);
+
+  React.useEffect(() => {
+    const handleLanguageChange = () => {
+      i18n.changeLanguage('uz');
+    };
+
+    i18n.on('uz', handleLanguageChange);
+
+    return () => {
+      i18n.off('uz', handleLanguageChange);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    i18n.changeLanguage();
+  }, [language]);
 
   if (!token) {
     return (
@@ -58,7 +73,6 @@ export function App() {
           </Routes>
         </React.Suspense>
         <GlobalStyle />
-        {/* {auth.loading && <Loader />} */}
       </BrowserRouter>
     );
   }
@@ -107,7 +121,6 @@ export function App() {
         </div>
       </div>
       <GlobalStyle />
-      {/* {auth.loading && <Loader />} */}
     </BrowserRouter>
   );
 }

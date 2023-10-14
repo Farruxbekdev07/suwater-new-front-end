@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
 import Button from 'UI/Button';
-import Container from 'UI/Container';
 import Input from 'UI/Input';
-import Select from 'UI/Select';
-import Header from 'app/components/Header';
-import Sidebar from 'app/components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import Textarea from 'UI/Textarea';
 import { toast } from 'react-toastify';
 import { usePost } from 'app/pages/Hooks';
 import { useTranslation } from 'react-i18next';
 
-export default function CreateService({
-  mode,
-  changeMode,
-  openSidebar,
-  setOpenSidebar,
-}) {
+export default function CreateService({ mode }) {
   const navigate = useNavigate();
   console.log(mode);
   const [name, setName] = useState('');
@@ -70,7 +61,7 @@ export default function CreateService({
               mode === true ? 'dark:text-black' : 'text-white dark:text-white'
             }`}
           >
-            {t("services.xizmat-qo'shish")}
+            {t("Xizmat qo'shish")}
           </h3>
         </div>
         <div className="mt-7">
@@ -91,19 +82,19 @@ export default function CreateService({
               <div className="grid gap-5">
                 <div className="grid gap-5">
                   <Input
-                    label="users.ismi"
+                    label="Ismi"
                     placeholder=" "
                     name="name"
                     onChange={setName}
                   />
                   <Input
-                    label="users.telefon"
+                    label="Telefon"
                     placeholder=" "
                     name="phone"
                     onChange={setPhone}
                   />
                   <Input
-                    label="services.kasb"
+                    label="Kasb"
                     placeholder=" "
                     name="job"
                     onChange={setJob}
@@ -111,7 +102,7 @@ export default function CreateService({
                 </div>
                 <div>
                   <Textarea
-                    label="messages.ma'lumot-yozing"
+                    label="Ma'lumot-yozing"
                     placeholder=" "
                     name="information"
                     className="h-[120px]"
@@ -124,10 +115,10 @@ export default function CreateService({
                     mode={mode}
                     className="w-1/4 flex justify-center"
                   >
-                    {t('users.orqaga')}
+                    {t('Orqaga')}
                   </Button>
                   <Button className="w-1/4 flex justify-center">
-                    {t('users.saqlash')}
+                    {t('Saqlash')}
                   </Button>
                 </div>
               </div>

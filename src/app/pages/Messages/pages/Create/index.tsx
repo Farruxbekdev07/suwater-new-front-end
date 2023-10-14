@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'UI/Button';
 import Input from 'UI/Input';
 import SelectComponent from 'UI/Select';
@@ -9,15 +9,24 @@ import { toast } from 'react-toastify';
 import { CREATE__MESSAGE } from './api';
 import { useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
+import paths from 'constants/routePaths';
 
 export default function SendMessage({ mode }) {
   const navigate = useNavigate();
   console.log(mode);
-  const [createMessage, { data, error }] = useMutation(CREATE__MESSAGE);
+  const [createMessage, { data, error, loading }] =
+    useMutation(CREATE__MESSAGE);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState([]);
   const { t, i18n } = useTranslation('translation');
+
+  useEffect(() => {
+    if (!loading && data) {
+      navigate(paths.MESSAGES);
+      toast.success('Message sended successfully');
+    }
+  }, [data, loading]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -30,11 +39,6 @@ export default function SendMessage({ mode }) {
           title,
         },
       });
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Message created successfully');
-      }
       setTitle('');
       setDescription('');
       setImage([]);
@@ -52,7 +56,7 @@ export default function SendMessage({ mode }) {
               mode === true ? 'text-black' : 'text-white'
             }`}
           >
-            {t('messages.xabar-yozish')}
+            {t('Xabar-yozish')}
           </h3>
         </div>
         <div className="mt-7">
@@ -74,7 +78,7 @@ export default function SendMessage({ mode }) {
               <div className="grid gap-5">
                 <div className="grid gap-5">
                   <Input
-                    label="messages.mavzu"
+                    label="Mavzu"
                     placeholder=" "
                     name="title"
                     onChange={setTitle}
@@ -83,7 +87,7 @@ export default function SendMessage({ mode }) {
                 </div>
                 <div>
                   <Textarea
-                    label="messages.ma'lumot-yozing"
+                    label="Ma'lumot-yozing"
                     placeholder=" "
                     name="description"
                     className="h-[120px]"
@@ -98,10 +102,10 @@ export default function SendMessage({ mode }) {
                     className="w-1/2 flex justify-center"
                     onClick={() => navigate('/messages')}
                   >
-                    {t('users.orqaga')}
+                    {t('Orqaga')}
                   </Button>
                   <Button className="w-1/2 flex justify-center">
-                    {t('users.saqlash')}
+                    {t('Saqlash')}
                   </Button>
                 </div>
               </div>

@@ -46,41 +46,45 @@ export const SIDEBAR_ROUTES: ISidebarRoutes[] = [
     path: paths.MAIN,
     element: Main,
     icon: HomeIcon,
-    label: 'sidebar.asosiy-sahifa',
+    label: 'Asosiy sahifa',
   },
   {
     path: paths.USERS,
     element: Users,
     icon: UserIcon,
-    label: 'sidebar.foydalanuvchilar',
+    label: 'Foydalanuvchilar',
   },
   {
     path: paths.APPEALS,
     element: Appeals,
     icon: PencilIcon,
-    label: 'sidebar.murojatlar',
+    label: 'Murojatlar',
   },
   {
     path: paths.SERVICES,
     element: Services,
     icon: KeyIcon,
-    label: 'sidebar.xizmatlar',
+    label: 'Xizmatlar',
   },
   {
     path: paths.MESSAGES,
     element: Messages,
     icon: PencilSquareIcon,
-    label: 'sidebar.xabarlar',
+    label: 'Xabarlar',
   },
   {
     path: paths.SETTINGS,
     element: Settings,
     icon: AdjustmentsHorizontalIcon,
-    label: 'sidebar.sozlamalar',
+    label: 'Sozlamalar',
   },
 ];
 
 export const MAIN_ROUTES: IRoute[] = [
+  {
+    path: '/',
+    element: Main,
+  },
   {
     path: paths.ADD__USER,
     element: CreateUser,

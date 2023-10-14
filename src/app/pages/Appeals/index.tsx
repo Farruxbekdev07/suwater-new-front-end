@@ -28,7 +28,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -43,7 +43,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -58,7 +58,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -73,7 +73,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -88,7 +88,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -103,7 +103,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -118,7 +118,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -133,7 +133,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -148,7 +148,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -163,7 +163,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -178,7 +178,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -193,7 +193,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -208,7 +208,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -223,7 +223,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -238,7 +238,7 @@ function Appeals({ mode }) {
           onClick={handleClick}
           mode={mode}
         >
-          {t("appeals.murojatlarni-ko'rish")}
+          {t("Murojatlarni ko'rish")}
         </Button>
       ),
     },
@@ -274,7 +274,7 @@ function Appeals({ mode }) {
                     mode === true ? 'text-black' : 'text-white'
                   }`}
                 >
-                  {t('sidebar.murojatlar')}
+                  {t('Murojatlar')}
                 </p>
               </div>
               <Table
